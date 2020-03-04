@@ -15,12 +15,12 @@ export default function StudentShow() {
   const loadStudents = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await api.get(`students?q=${q}&page=${page}`);
+      const response = await api.get(`recipients?q=${q}&page=${page}`);
       const { docs, pages } = response.data;
       setPageTotal(pages);
       setStudents(docs);
     } catch (error) {
-      toast.error('Erro ao listar alunos');
+      toast.error('Erro ao listar destinatários');
     }
     setLoading(false);
   }, [page, q]);
@@ -31,14 +31,14 @@ export default function StudentShow() {
 
   const handleDelete = async id => {
     // eslint-disable-next-line no-alert
-    if (window.confirm('Tem certeza que deseja apagar aluno?')) {
+    if (window.confirm('Tem certeza que deseja apagar destinatário?')) {
       setLoading(true);
       try {
         await api.delete(`students/${id}`);
-        toast.success('Aluno apagado com sucesso');
+        toast.success('Destinatário apagado com sucesso');
         loadStudents();
       } catch (error) {
-        toast.error('Erro ao apagar aluno');
+        toast.error('Erro ao apagar destinatário');
       }
       setLoading(false);
     }
@@ -47,32 +47,32 @@ export default function StudentShow() {
   return (
     <Container loading={loading}>
       <FieldGroupList
-        title="Gerenciando alunos"
+        title="aaa"
         location="/student.new"
         handleChange={setQ}
-        inputPlaceholder="Buscar aluno"
+        inputPlaceholder="Buscar por destinatários"
       />
 
       <List>
         <li>
           <div>
-            <strong>NOME</strong>
+            <strong>ID</strong>
           </div>
           <div>
-            <strong>EMAIL</strong>
+            <strong>Nome</strong>
           </div>
           <div>
-            <strong>IDADE</strong>
+            <strong>Endereço</strong>
           </div>
           <div>
-            <strong />
+            <strong>Ações</strong>
           </div>
         </li>
         {students.map(item => (
           <li key={item.id}>
+            <div>{item.id}</div>
             <div>{item.name}</div>
-            <div>{item.email}</div>
-            <div>{item.age}</div>
+            <div>{item.street}, {item.number}, {item.city} - {item.state}</div>
             <div>
               <Link to={`student.edit/${item.id}`} className="edit">
                 <span className="edit">editar</span>

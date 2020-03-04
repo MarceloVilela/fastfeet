@@ -8,13 +8,14 @@ import { Container } from '../../../components';
 export default function StudentUpdate() {
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async ({ name, email, birth, weight, height }) => {
+  const handleSubmit = async ({ name, street, number, complement, city, state, zip_code }) => {
     setLoading(true);
     try {
-      await api.post('students', { name, email, birth, weight, height });
-      toast.success('Aluno cadastrado com sucesso');
+      const zip_code_formated = parseInt('21756-310'.replace('-', ''))
+      await api.post('recipients', { name, street, number, complement, city, state, zip_code: zip_code_formated });
+      toast.success('Destinatário cadastrado com sucesso');
     } catch (error) {
-      toast.error('Erro ao cadastrar aluno');
+      toast.error('Erro ao cadastrar destinatário');
     }
     setLoading(false);
   };
@@ -22,7 +23,7 @@ export default function StudentUpdate() {
   return (
     <Container>
       <FormStudent
-        title="Cadastro de aluno"
+        title="---"
         initialData={{}}
         handleSubmit={handleSubmit}
         loadingSubmit={loading}

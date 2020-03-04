@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React /*, { useState, useEffect }*/ from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
-import { differenceInCalendarYears, parseISO } from 'date-fns';
+//import { differenceInCalendarYears, parseISO } from 'date-fns';
 import PropTypes from 'prop-types';
 
 import { FieldGroupForm as Fieldset, FormLayout } from '../../../components';
@@ -12,55 +12,36 @@ export default function StudentForm({
   handleSubmit,
   loadingSubmit,
 }) {
-  const [age, setAge] = useState('');
-  const [weight, setWeight] = useState('');
-  const [height, setHeight] = useState('');
-
-  const handleAge = birth => {
-    if (birth) {
-      setAge(differenceInCalendarYears(new Date(), parseISO(birth)));
-    }
-  };
-
-  const handleWeight = val => {
-    const unmasked = val.replace(/\D/g, '').slice(0, 4);
-    setWeight(
-      unmasked.length === 3
-        ? unmasked.replace(/(\d)(\d)(\d)/, '$1$2.$3')
-        : unmasked.replace(/(\d)(\d)(\d)(\d)/, '$1$2$3.$4')
-    );
-  };
-
-  const handleHeight = val => {
-    const unmasked = val.replace(/\D/g, '').slice(0, 3);
-    setHeight(unmasked.replace(/(\d)(\d)(\d)/, '$1.$2$3'));
-  };
-
-  useEffect(() => {
-    if (initialData.weight) {
-      handleAge(initialData.birth);
-      setWeight(`${initialData.weight}`);
-      setHeight(`${initialData.height}`);
-    }
-  }, [initialData]);
+  /*const [name, setName] = useState('');
+  const [street, setStreet] = useState('');
+  const [number, setNumber] = useState('');
+  const [complement, setComplement] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [zip_code, setZip_code] = useState('');*/
 
   const schema = Yup.object().shape({
     name: Yup.string()
       .min(7, 'Nome precisa de ao menos 7 caracteres')
       .required('Preencha este campo'),
-    email: Yup.string()
-      .email('Email inválido')
+    street: Yup.string()
+      .min(7, 'Rua precisa de ao menos 5 caracteres')
       .required('Preencha este campo'),
-    birth: Yup.date('Data de nascimento inválida').required(
-      'Preencha este campo'
-    ),
-    weight: Yup.number()
-      .min(40, 'Peso precisa estar entre 40 e 150')
-      .max(150, 'Peso precisa estar entre 40 e 150')
+    number: Yup.string()
+      .min(1, 'Número precisa estar entre 1 e 9999')
+      .max(9999, 'Número precisa estar entre 1 e 9999')
       .required('Preencha este campo'),
-    height: Yup.number()
-      .min(1.2, 'Altura precisa estar entre 1.20 e 2.50')
-      .max(2.5, 'Altura precisa estar entre 1.20 e 2.50')
+    complement: Yup.string()
+      .min(4, 'Complemento precisa de ao menos 4 caracteres')
+      .required('Preencha este campo'),
+    city: Yup.string()
+      .min(7, 'Cidade precisa de ao menos 5 caracteres')
+      .required('Preencha este campo'),
+    state: Yup.string()
+      .min(7, 'Estado precisa de ao menos 5 caracteres')
+      .required('Preencha este campo'),
+    zip_code: Yup.string()
+      .min(7, 'CEP precisa de ao menos 9 caracteres')
       .required('Preencha este campo'),
   });
 
@@ -72,66 +53,54 @@ export default function StudentForm({
         <div>
           <section>
             <label htmlFor="name">
-              NOME COMPLETO
+              Nome
               <Input name="name" type="text" id="name" required />
-            </label>
-          </section>
-        </div>
-
-        <div>
-          <section>
-            <label htmlFor="email">
-              ENDEREÇO DE E-MAIL
-              <Input name="email" type="text" id="email" required />
             </label>
           </section>
         </div>
 
         <div className="break-row">
           <section>
-            <label htmlFor="birth">
-              NASCIMENTO
-              <Input
-                name="birth"
-                type="date"
-                id="birth"
-                onChange={e => handleAge(e.target.value)}
-              />
+            <label htmlFor="street">
+              Rua
+              <Input name="street" type="text" id="street" required />
             </label>
           </section>
 
           <section>
-            <label htmlFor="age">
-              IDADE
-              <Input name="age" type="text" id="age" value={age} readOnly />
+            <label htmlFor="number">
+              Número
+              <Input name="number" type="text" id="number" required />
             </label>
           </section>
 
           <section>
-            <label htmlFor="weight">
-              PESO (em kg)
-              <Input
-                name="weight"
-                type="text"
-                id="weight"
-                required
-                value={weight || ''}
-                onChange={e => handleWeight(e.target.value)}
-              />
+            <label htmlFor="complement">
+              Complemento
+              <Input name="complement" type="text" id="complement" required />
+            </label>
+          </section>
+        </div>
+
+        <div className="break-row">
+          <section>
+            <label htmlFor="city">
+              Cidade
+              <Input name="city" type="text" id="city" required />
             </label>
           </section>
 
           <section>
-            <label htmlFor="height">
-              ALTURA
-              <Input
-                name="height"
-                type="text"
-                id="height"
-                required
-                value={height || ''}
-                onChange={e => handleHeight(e.target.value)}
-              />
+            <label htmlFor="state">
+              Estado
+              <Input name="state" type="text" id="state" required />
+            </label>
+          </section>
+
+          <section>
+            <label htmlFor="zip_code">
+              CEP
+              <Input name="zip_code" type="text" id="zip_code" required />
             </label>
           </section>
         </div>
@@ -144,10 +113,12 @@ StudentForm.propTypes = {
   title: PropTypes.string.isRequired,
   initialData: PropTypes.shape({
     name: PropTypes.string,
-    email: PropTypes.string,
-    birth: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-    weight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    street: PropTypes.string,
+    number: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    complement: PropTypes.string,
+    city: PropTypes.string,
+    state: PropTypes.string,
+    zip_code: PropTypes.string,
   }),
   handleSubmit: PropTypes.func.isRequired,
   loadingSubmit: PropTypes.bool.isRequired,

@@ -10,10 +10,15 @@ export const FieldGroup = styled.div`
     flex: 1;
     text-align: left;
     align-self: center;
+    flex-basis: 100%;
   }
 
   div {
     display: flex;
+    flex: 1;
+    /*flex: 1;
+    flex-direction: row-reverse;
+    justify-content: space-between;*/
 
     a + button {
       margin-left: 10px;

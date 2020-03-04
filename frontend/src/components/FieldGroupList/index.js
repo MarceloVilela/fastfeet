@@ -17,15 +17,6 @@ export default function FieldGroupForm({
       <h1>{title}</h1>
 
       <div>
-        {location && (
-          <Link to={location}>
-            <button type="button">
-              <MdAdd style={{ marginRight: '10px' }} />
-              CADASTRAR
-            </button>
-          </Link>
-        )}
-
         {inputPlaceholder && (
           <div>
             <MdSearch
@@ -38,6 +29,15 @@ export default function FieldGroupForm({
               onChange={e => handleInput(e.target.value)}
             />
           </div>
+        )}
+
+        {location && (
+          <Link to={location}>
+            <button type="button">
+              <MdAdd style={{ marginRight: '10px' }} />
+              CADASTRAR
+            </button>
+          </Link>
         )}
       </div>
     </FieldGroup>

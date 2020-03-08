@@ -19,7 +19,7 @@ export default function RouteWrapper({
   }
 
   if (signed && !isPrivate) {
-    return <Redirect to="/student" />;
+    return <Redirect to="/delivery" />;
   }
 
   const Layout = signed ? DefaultLayout : AuthLayout;
@@ -27,7 +27,7 @@ export default function RouteWrapper({
   return (
     <Route
       {...rest}
-      render={props => (
+      render={(props) => (
         <Layout>
           <Component {...props} />
         </Layout>

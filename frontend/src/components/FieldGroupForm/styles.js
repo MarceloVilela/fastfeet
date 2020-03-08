@@ -10,6 +10,7 @@ export const FieldGroup = styled.div`
     flex: 1;
     text-align: left;
     align-self: center;
+    font-weight: 500;
   }
 
   div {
@@ -52,6 +53,6 @@ export const FieldGroup = styled.div`
   }
 `;
 
-export const Button = styled.button.attrs(props => ({
+export const Button = styled.button.attrs((props) => ({
   disabled: props.loading === 'true' ? 'disabled' : undefined,
 }))``;

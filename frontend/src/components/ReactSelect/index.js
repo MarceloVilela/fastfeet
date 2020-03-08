@@ -12,7 +12,9 @@ export default function ReactSelect({
   ...rest
 }) {
   const ref = useRef(null);
-  const { fieldName, registerField, defaultValue, error } = useField(name);
+  const {
+    fieldName, registerField, defaultValue, error,
+  } = useField(name);
 
   function parseSelectValue(selectRef) {
     const selectValue = selectRef.state.value;
@@ -20,7 +22,7 @@ export default function ReactSelect({
       return selectValue ? selectValue.id : '';
     }
 
-    return selectValue ? selectValue.map(option => option.id) : [];
+    return selectValue ? selectValue.map((option) => option.id) : [];
   }
 
   useEffect(() => {
@@ -29,7 +31,7 @@ export default function ReactSelect({
       ref: ref.current,
       path: 'state.value',
       parseValue: parseSelectValue,
-      clearValue: selectRef => {
+      clearValue: (selectRef) => {
         selectRef.select.clearValue();
       },
     });
@@ -42,10 +44,10 @@ export default function ReactSelect({
     if (!defaultId) return null;
 
     if (!multiple) {
-      return options.find(option => option.id === defaultId);
+      return options.find((option) => option.id === defaultId);
     }
 
-    return options.filter(option => defaultValue.includes(option.id));
+    return options.filter((option) => defaultValue.includes(option.id));
   }
 
   return (
@@ -59,8 +61,8 @@ export default function ReactSelect({
         isMulti={multiple}
         defaultValue={getDefaultValue()}
         ref={ref}
-        getOptionValue={option => option.id}
-        getOptionLabel={option => option.title}
+        getOptionValue={(option) => option.id}
+        getOptionLabel={(option) => option.title}
         {...rest}
       />
 

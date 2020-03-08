@@ -10,12 +10,12 @@ import {
 } from 'react-icons/md';
 
 import { signOut } from '~/store/modules/auth/actions';
-// import logo from '~/assets/logo-horizontal.svg';
+import logo from '~/assets/fastfeet-logo.svg';
 import { Container, Content } from './styles';
 
 export default function Header() {
   const dispatch = useDispatch();
-  const profile = useSelector(state => state.user.profile);
+  const profile = useSelector((state) => state.user.profile);
 
   function handleSignOut() {
     dispatch(signOut());
@@ -28,35 +28,35 @@ export default function Header() {
           <article>
             <section>
               <img
-                // src={logo}
-                alt="Gympoint"
+                src={logo}
+                alt="FastFeet"
               />
             </section>
 
             <section>
+              <NavLink to="/delivery" activeClassName="chosen" exact={false}>
+                <span>ENCOMENDAS</span>
+                <MdEvent />
+              </NavLink>
               <NavLink
-                to="/student"
+                to="/deliveryman"
+                activeClassName="chosen"
+                exact={false}
+              >
+                <span>ENTREGADORES</span>
+                <MdCardMembership />
+              </NavLink>
+              <NavLink
+                to="/recipient"
                 activeClassName="chosen"
                 exact={false}
                 strict={false}
               >
-                <span>ALUNOS</span>
+                <span>DESTINATÁRIOS</span>
                 <MdPersonOutline />
               </NavLink>
-              <NavLink to="/plan" activeClassName="chosen" exact={false}>
-                <span>PLANOS</span>
-                <MdEvent />
-              </NavLink>
-              <NavLink
-                to="/registration"
-                activeClassName="chosen"
-                exact={false}
-              >
-                <span>MATRÍCULAS</span>
-                <MdCardMembership />
-              </NavLink>
-              <NavLink to="/help" activeClassName="chosen" exact={false}>
-                <span>PEDIDOS DE AUXÍLIO</span>
+              <NavLink to="/problem" activeClassName="chosen" exact={false}>
+                <span>PROBLEMAS</span>
                 <MdHelpOutline />
               </NavLink>
             </section>

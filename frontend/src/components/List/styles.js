@@ -2,9 +2,8 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 
 export const Wrap = styled.ul`
-  background: #fff;
   min-width: 480px;
-  padding: 20px 0 20px 0;
+  padding: 0;
 
   li {
     display: flex;
@@ -12,14 +11,23 @@ export const Wrap = styled.ul`
     color: #666;
     font-size: 16px;
     padding: 10px 20px;
-    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+    &:first-of-type {
+      background: #eee;
+      border: none;
+    }
 
     div {
       flex: 1;
 
-      &:nth-of-type(1) {
-        text-align: left;
+      &:last-of-type {
+        text-align: right;
       }
+
+      text-align: left;
     }
 
     strong {

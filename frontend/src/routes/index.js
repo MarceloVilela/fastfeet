@@ -4,45 +4,43 @@ import Route from './Route';
 
 import SignIn from '../pages/SignIn';
 
-import StudentNew from '../pages/Student/Create';
-import Student from '../pages/Student/Show';
-import StudentEdit from '../pages/Student/Update';
+import RecipientNew from '../pages/Recipient/Create';
+import Recipient from '../pages/Recipient/Show';
+import RecipientEdit from '../pages/Recipient/Update';
 
-import PlanNew from '../pages/Plan/Create';
-import Plan from '../pages/Plan/Show';
-import PlanEdit from '../pages/Plan/Update';
+import DeliveryNew from '../pages/Delivery/Create';
+import Delivery from '../pages/Delivery/Show';
+import DeliveryEdit from '../pages/Delivery/Update';
 
-import Registration from '../pages/Registration/Show';
-import RegistrationEdit from '../pages/Registration/Update';
-import RegistrationNew from '../pages/Registration/Create';
+import Deliveryman from '../pages/Deliveryman/Show';
+import DeliverymanEdit from '../pages/Deliveryman/Update';
+import DeliverymanNew from '../pages/Deliveryman/Create';
 
-import Help from '../pages/Help/Show';
+import Problem from '../pages/Problem/Show';
 
 export default function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={SignIn} />
 
-      <Route path="/student.new" component={StudentNew} isPrivate />
-      <Route path="/student" component={Student} isPrivate exact />
-      <Route path="/student.edit/:id" component={StudentEdit} isPrivate />
+      <Route path="/recipient.new" component={RecipientNew} isPrivate />
+      <Route path="/recipient" component={Recipient} isPrivate exact />
+      <Route path="/recipient.edit/:id" component={RecipientEdit} isPrivate />
 
-      <Route path="/plan.new" component={PlanNew} isPrivate />
-      <Route path="/plan" component={Plan} isPrivate exact />
-      <Route path="/plan.edit/:id" component={PlanEdit} isPrivate />
+      <Route path="/delivery.new" component={DeliveryNew} isPrivate />
+      <Route path="/delivery" component={Delivery} isPrivate exact />
+      <Route path="/delivery.edit/:id" component={DeliveryEdit} isPrivate />
 
-      <Route path="/registration.new" component={RegistrationNew} isPrivate />
-      <Route path="/registration" component={Registration} isPrivate exact />
+      <Route path="/deliveryman.new" component={DeliverymanNew} isPrivate />
+      <Route path="/deliveryman" component={Deliveryman} isPrivate exact />
       <Route
-        path="/registration.edit/:id"
-        component={RegistrationEdit}
+        path="/deliveryman.edit/:id"
+        component={DeliverymanEdit}
         isPrivate
         exact
       />
 
-      <Route path="/help" component={Help} isPrivate />
-
-      <Route component={Student} />
+      <Route path="/problem" component={Problem} isPrivate />
     </Switch>
   );
 }

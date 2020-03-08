@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import indicator from '~/assets/load.gif';
+import indicator from '~/assets/load.gif';
 
 import { Wrap, WrapLoading, Image } from './styles';
 
@@ -11,7 +11,7 @@ export default function Container({ children, loading }) {
       {loading && (
         <WrapLoading>
           <Image
-            // src={indicator}
+            src={indicator}
             alt="Loading"
           />
         </WrapLoading>

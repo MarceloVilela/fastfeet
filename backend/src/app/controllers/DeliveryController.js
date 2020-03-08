@@ -1,7 +1,9 @@
 import * as Yup from 'yup';
 import { Op } from 'sequelize';
 import Delivery from '../models/Delivery';
-//import Registration from '../models/Registration';
+import Recipient from '../models/Recipient';
+import Deliveryman from '../models/Deliveryman';
+// import Registration from '../models/Registration';
 
 class DeliveryController {
   async store(req, res) {
@@ -16,7 +18,7 @@ class DeliveryController {
     }
 
     const {
-      id, recipient_id, deliveryman_id, product
+      id, recipient_id, deliveryman_id, product,
     } = await Delivery.create({
       recipient_id: req.body.recipient_id,
       deliveryman_id: req.body.deliveryman_id,
@@ -24,7 +26,7 @@ class DeliveryController {
     });
 
     return res.json({
-      id, recipient_id, deliveryman_id, product
+      id, recipient_id, deliveryman_id, product,
     });
   }
 
@@ -37,15 +39,18 @@ class DeliveryController {
       paginate: 10,
       order: [['id', 'ASC']],
       where,
-      /*include: [
+      include: [
         {
-          model: Registration,
-          as: 'registration',
-          attributes: ['id', 'plan_id'],
-          where: { canceled_at: null },
-          required: false,
+          model: Recipient,
+          as: 'recipient',
+          attributes: ['id', 'name', /* 'street', */ 'number', 'city', 'state', 'zip_code'],
         },
-      ],*/
+        {
+          model: Deliveryman,
+          as: 'deliveryman',
+          attributes: ['id', 'name', 'email'],
+        },
+      ],
     };
 
     const { docs, pages, total } = await Delivery.paginate(options);
@@ -63,7 +68,21 @@ class DeliveryController {
     }
 
     const { id } = req.params;
-    const delivery = await Delivery.findOne({ where: { id } });
+    const delivery = await Delivery.findOne({
+      where: { id },
+      include: [
+        {
+          model: Recipient,
+          as: 'recipient',
+          attributes: ['id', 'name', /* 'street', */ 'number', 'city', 'state', 'zip_code'],
+        },
+        {
+          model: Deliveryman,
+          as: 'deliveryman',
+          attributes: ['id', 'name', 'email'],
+        },
+      ],
+    });
 
     if (!delivery) {
       return res.status(400).json({ error: 'Delivery not found' });
@@ -74,8 +93,9 @@ class DeliveryController {
 
   async update(req, res) {
     const schema = Yup.object().shape({
-      name: Yup.string().required(),
-      email: Yup.string().email().required(),
+      recipient_id: Yup.number().required(),
+      deliveryman_id: Yup.number().required(),
+      product: Yup.string().required(),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -89,16 +109,16 @@ class DeliveryController {
     }
 
     const returnUpdate = await Delivery.update(
-      {...req.body, avatar_id: 'zaq1'},
+      { ...req.body, avatar_id: 'zaq1' },
       { where: { id: req.params.id }, returning: true },
     );
 
     const [, [{
-      id, name, email, avatar_id
+      id, name, email, avatar_id,
     }]] = returnUpdate;
 
     return res.json({
-      id, name, email, avatar_id
+      id, name, email, avatar_id,
     });
   }
 

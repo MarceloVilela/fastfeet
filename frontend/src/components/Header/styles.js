@@ -33,6 +33,10 @@ export const Content = styled.div`
           margin-right: 15px;
           border-right: 2px solid #ccc;
         }
+
+        img {
+          width: 128px;
+        }
       }
     }
 

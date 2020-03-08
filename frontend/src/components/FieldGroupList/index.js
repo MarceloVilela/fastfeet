@@ -4,7 +4,7 @@ import { MdAdd, MdSearch } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 // import indicator from '~/assets/load.gif';
 
-import { FieldGroup } from './styles';
+import { FieldGroup, InputContainer } from './styles';
 
 export default function FieldGroupForm({
   title,
@@ -16,18 +16,22 @@ export default function FieldGroupForm({
     <FieldGroup>
       <h1>{title}</h1>
 
-      <div>
+      <article>
         {inputPlaceholder && (
           <div>
-            <MdSearch
-              style={{ left: '20px', top: '10px', position: 'relative' }}
-            />
-            <input
-              type="text"
-              name="search"
-              placeholder={inputPlaceholder}
-              onChange={e => handleInput(e.target.value)}
-            />
+            <InputContainer>
+              <MdSearch
+                style={{
+                  left: '5px', top: '10px', position: 'relative', zIndex: 9,
+                }}
+              />
+              <input
+                type="text"
+                name="search"
+                placeholder={inputPlaceholder}
+                onChange={(e) => handleInput(e.target.value)}
+              />
+            </InputContainer>
           </div>
         )}
 
@@ -39,7 +43,7 @@ export default function FieldGroupForm({
             </button>
           </Link>
         )}
-      </div>
+      </article>
     </FieldGroup>
   );
 }

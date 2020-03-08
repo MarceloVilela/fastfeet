@@ -11,11 +11,13 @@ export const FieldGroup = styled.div`
     text-align: left;
     align-self: center;
     flex-basis: 100%;
+    font-weight: 500;
   }
 
-  div {
+  article {
     display: flex;
     flex: 1;
+    margin-top: 20px;
     /*flex: 1;
     flex-direction: row-reverse;
     justify-content: space-between;*/
@@ -44,15 +46,7 @@ export const FieldGroup = styled.div`
 
     div {
       align-self: start;
-
-      input {
-        padding-left: 20px;
-        height: 34px;
-        border-radius: 4px;
-        border: 1px solid #999;
-        color: #999;
-        min-width: 240px;
-      }
+      flex: 1;
     }
 
     @media screen and (max-width: 1024px) {
@@ -61,5 +55,22 @@ export const FieldGroup = styled.div`
         width: 100%;
       }
     }
+  }
+`;
+
+export const InputContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  flex: 1;
+
+  input {
+    padding-left: 20px;
+    height: 34px;
+    border-radius: 4px;
+    border: 1px solid #999;
+    color: #999;
+    min-width: 240px;
+    position: relative;
+    left: -14px;
   }
 `;

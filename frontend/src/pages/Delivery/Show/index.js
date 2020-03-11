@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 import {
-  Container, FieldGroupList, List, Modal, Pagination,
+  Container, FieldGroupList, List, Modal, Options, Pagination,
 } from '../../../components';
 import DeliveryPreview from '../Preview';
 
@@ -17,11 +16,21 @@ export default function Profile() {
   const [currentHelp, setCurrentHelp] = useState({});
   const [openModal, setOpenModal] = useState(false);
 
-  const formatPlan = (plan) => ({
-    ...plan,
-    durationDesc:
-      plan.duration === 1 ? `${plan.duration} mês` : `${plan.duration} meses`,
-  });
+  const formatPlan = (data) => {
+    let status = { description: 'PENDENTE', color: 'yellow' }
+
+    if (data.start_date) {
+      status = { description: 'RETIRADA', color: 'yellow' };
+    } else if (data.end_date) {
+      status = { description: 'ENTREGUE', color: 'yellow' };
+    } else if (data.canceled_at) {
+      status = { description: 'CANCELADA', color: 'yellow' };
+    }
+    return {
+      ...data,
+      status
+    }
+  };
 
   const loadPlans = useCallback(async () => {
     setLoading(true);
@@ -111,36 +120,17 @@ export default function Profile() {
             <div>{item.deliveryman.name}</div>
             <div>{item.recipient.city}</div>
             <div>{item.recipient.state}</div>
-            <div>PENDENTE</div>
             <div>
-              <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'baseline'
-              }}
-            >
-                <button
-                type="button"
-                className="info"
-                onClick={() => handleDelivery(item)}
-              >
-                visualizar
-                </button>
-              <Link to={`delivery.edit/${item.id}`} className="edit">
-                <span className="edit">editar</span>
-              </Link>
-
-              <button
-                type="button"
-                className="warning"
-                onClick={() => handleDelete(item.id)}
-              >
-                apagar
-                </button>
+              <span style={{ border: '1px solid black', borderRadius: '10px', padding: '3px', background: item.status.color, display: 'flex', width: 'fit-content' }}>
+                <span style={{ display: 'block', height: '17px', width: '17px', background: 'black', borderRadius: '50%', marginRight: '5px', }}>&nbsp;</span>
+                <span>{item.status.description}</span>
+              </span>
             </div>
-            </div>
+          <div>
+            <Options handleInfo={() => handleDelivery(item)} linkEdit={`delivery.edit/${item.id}`} handleDelete={() => handleDelete(item.id)} />
+          </div>
           </li>
-      ))}
+        ))}
       </List>
     <Pagination current={page} total={pageTotal} setPage={setPage} />
 

@@ -6,5 +6,6 @@ export { default as Header } from './Header';
 export { default as List } from './List';
 export { default as Modal } from './Modal';
 export { default as Notifications } from './Notifications';
+export { default as Options } from './Options';
 export { default as Pagination } from './Pagination';
 export { default as Select } from './ReactSelect';

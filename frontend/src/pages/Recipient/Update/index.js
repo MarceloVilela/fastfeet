@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { format, parseISO } from 'date-fns';
 import PropTypes from 'prop-types';
 
 import FormStudent from '../_Form';
@@ -19,7 +18,7 @@ export default function StudentUpdate({ match }) {
         const response = await api.get(`recipients/${match.params.id}`);
         const docs = {
           ...response.data,
-          // birth: format(parseISO(response.data.birth), 'yyyy-MM-dd'),
+          zip_code: `${response.data.zip_code}`.replace(/(\d)(\d)(\d)(\d)(\d)(\d)(\d)(\d)/,"$1$2$3$4$5-$6$7$8"),
         };
         setStudent(docs);
       } catch (error) {

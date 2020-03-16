@@ -1,0 +1,47 @@
+https://github.com/MarceloVilela/gympoint/blob/master/frontend/src/pages/Registration/_Form/index.js
+https://unform.dev/examples/react-select
+display flex justify-content center align-items center
+
+back
+	Destinatario
+		add campo rua[x]
+		
+front
+	Upload img[x]
+	unform v2[x]
+	visual options[x]
+	entidades[x]
+	url[x]
+	status encomenda[x]
+	listagem
+		filtro
+	form validation
+		wait loading select/mask[x]
+	funcionalidades restantes
+	https://github.com/axios/axios#interceptors
+	https://stackoverflow.com/questions/32553158/detect-click-outside-react-component
+	
+ID Destinatário Entregador Cidade Estado Status Ações
+
+
+
+
+
+display: flex;
+    justify-content: flex-start;
+    flex: 1;
+    position: absolute;
+	
+	
+	
+left: 5px;
+    top: 10px;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    z-index: 9;
+	
+	
+	
+position: relative;
+    left: -14px;

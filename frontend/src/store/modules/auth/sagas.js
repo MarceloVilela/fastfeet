@@ -1,4 +1,6 @@
-import { all, takeLatest, call, put } from 'redux-saga/effects';
+import {
+  all, takeLatest, call, put,
+} from 'redux-saga/effects';
 import { toast } from 'react-toastify';
 
 import history from '~/services/history';
@@ -21,7 +23,7 @@ export function* signIn({ payload }) {
 
     yield put(signInSuccess(token, user));
 
-    history.push('/student');
+    history.push('/encomenda');
   } catch (err) {
     toast.error('Falha na autenticação, verifique seus dados');
     yield put(signFailure());

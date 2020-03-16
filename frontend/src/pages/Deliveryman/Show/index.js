@@ -1,19 +1,18 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 import {
-  Container, FieldGroupList, List, Pagination,
+  Container, FieldGroupList, List, Options, Pagination,
 } from '../../../components';
 
-export default function RegistrationShow() {
-  const [deliverymen, setDeliverymen] = useState([]);
+export default function DeliverymanShow() {
+  const [itens, setItens] = useState([]);
   const [page, setPage] = useState(1);
   const [pageTotal, setPageTotal] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  const loadRegistrations = useCallback(async () => {
+  const loadItens = useCallback(async () => {
     setLoading(true);
 
     try {
@@ -22,7 +21,7 @@ export default function RegistrationShow() {
       } = await api.get(`deliverymen?page=${page}`);
 
       setPageTotal(pages);
-      setDeliverymen(docs);
+      setItens(docs);
     } catch (error) {
       toast.error('Erro ao listar entregador');
     }
@@ -30,8 +29,8 @@ export default function RegistrationShow() {
   }, [page]);
 
   useEffect(() => {
-    loadRegistrations();
-  }, [page, loadRegistrations]);
+    loadItens();
+  }, [page, loadItens]);
 
   const handleDelete = async (id) => {
     // eslint-disable-next-line no-alert
@@ -40,7 +39,7 @@ export default function RegistrationShow() {
       try {
         await api.delete(`registrations/${id}`);
         toast.success('Entregador apagado com sucesso');
-        loadRegistrations();
+        loadItens();
       } catch (error) {
         toast.error('Erro ao apagar entregador');
       }
@@ -52,7 +51,7 @@ export default function RegistrationShow() {
     <Container loading={loading}>
       <FieldGroupList
         title="Gerenciando entregadores"
-        location="/deliveryman.new"
+        location="/entregador.cadastrar"
         handleChange={() => { }}
         inputPlaceholder="Buscar por entregadores"
       />
@@ -75,27 +74,23 @@ export default function RegistrationShow() {
             <strong>Ações</strong>
           </div>
         </li>
-        {deliverymen.map((item) => (
+        {itens.map((item) => (
           <li key={item.id}>
             <div>
               #
               {item.id}
             </div>
-            <div>---</div>
+            <div>
+              <img
+                src={`http://localhost:3333/files/${item.avatar_id}`}
+                data-src={`https://whattt.glitch.me/files/${item.avatar_id}`}
+                style={{ width: '40px', height: '40px', borderRadius: '50%' }}
+              />
+            </div>
             <div>{item.name}</div>
             <div>{item.email}</div>
             <div>
-              <Link to={`deliveryman.edit/${item.id}`} className="edit">
-                <span className="edit">editar</span>
-              </Link>
-
-              <button
-                type="button"
-                className="warning"
-                onClick={() => handleDelete(item.id)}
-              >
-                apagar
-              </button>
+              <Options linkEdit={`entregador.editar/${item.id}`} handleDelete={() => handleDelete(item.id)} />
             </div>
           </li>
         ))}

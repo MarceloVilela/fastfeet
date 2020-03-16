@@ -71,6 +71,46 @@ export const Wrap = styled.div`
         }
       }
     }
+
+    label.avatar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: auto;
+      background: #fff;
+      color: #999;
+      margin: 0 auto 50px;
+
+      input[type="file"] {
+        display: none;
+      }
+
+      svg, img {
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+      }
+
+      /* hide icon after select file */
+      img + input[type="file"] {
+        display: none;
+      }
+
+      /* hide icon on edit */
+      img + input[type="file"] + svg, img + svg {
+        display: none;
+      }
+
+      /* hide description on edit */
+      img + svg + span {
+        display: none;
+      }
+
+      /* hide old image after select new file on edit */
+      img + input + img {
+        display: none;
+      }
+    }
   }
 
   @media screen and (max-width: 1024px) {

@@ -1,12 +1,12 @@
 import Sequelize, { Model } from 'sequelize';
 import sequelizePaginate from 'sequelize-paginate';
-//import { differenceInCalendarYears } from 'date-fns';
+// import { differenceInCalendarYears } from 'date-fns';
 
 class deliveries extends Model {
   static init(sequelize) {
     sequelize.define('deliveries', {
-      freezeTableName: true
-    })
+      freezeTableName: true,
+    });
 
     super.init(
       {
@@ -14,14 +14,31 @@ class deliveries extends Model {
         recipient_id: Sequelize.INTEGER,
         signature_id: Sequelize.STRING,
         product: Sequelize.STRING,
-        
+
         canceled_at: Sequelize.DATE,
         start_date: Sequelize.DATE,
         end_date: Sequelize.DATE,
+
+        status: {
+          type: Sequelize.VIRTUAL,
+          get() {
+            let value = 'pending';
+
+            if (this.start_date) {
+              value = 'withdrawal';
+            } else if (this.end_date) {
+              value = 'delivered';
+            } else if (this.canceled_at) {
+              value = 'canceled';
+            }
+
+            return value;
+          },
+        },
       },
       {
         sequelize,
-        freezeTableName: true
+        freezeTableName: true,
       },
     );
 

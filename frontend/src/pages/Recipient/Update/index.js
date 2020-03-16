@@ -2,32 +2,28 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 
-import FormStudent from '../_Form';
+import FormRecipient from '../_Form';
 import api from '~/services/api';
 import { Container } from '../../../components';
 
-export default function StudentUpdate({ match }) {
-  const [student, setStudent] = useState({});
+export default function RecipientUpdate({ match }) {
+  const [item, setItem] = useState({});
   const [loading, setLoading] = useState(false);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
 
   useEffect(() => {
-    async function loadStudent() {
+    async function loadItem() {
       setLoading(true);
       try {
         const response = await api.get(`recipients/${match.params.id}`);
-        const docs = {
-          ...response.data,
-          zip_code: `${response.data.zip_code}`.replace(/(\d)(\d)(\d)(\d)(\d)(\d)(\d)(\d)/,"$1$2$3$4$5-$6$7$8"),
-        };
-        setStudent(docs);
+        setItem(response.data);
       } catch (error) {
         toast.error('Erro ao listar destintário');
       }
       setLoading(false);
     }
 
-    loadStudent();
+    loadItem();
   }, [match]);
 
   const handleSubmit = async ({
@@ -35,8 +31,9 @@ export default function StudentUpdate({ match }) {
   }) => {
     setLoadingSubmit(true);
     try {
+      const zipCodeFormated = parseInt(zip_code.replace('-', ''));
       await api.put(`recipients/${match.params.id}`, {
-        name, street, number, complement, city, state, zip_code,
+        name, street, number, complement, city, state, zip_code: zipCodeFormated,
       });
       toast.success('Destinatário editado com sucesso');
     } catch (error) {
@@ -47,9 +44,9 @@ export default function StudentUpdate({ match }) {
 
   return (
     <Container loading={loading}>
-      <FormStudent
+      <FormRecipient
         title="Edição de destinatário"
-        initialData={student}
+        initialData={item}
         handleSubmit={handleSubmit}
         loadingSubmit={loadingSubmit}
       />
@@ -57,7 +54,7 @@ export default function StudentUpdate({ match }) {
   );
 }
 
-StudentUpdate.propTypes = {
+RecipientUpdate.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,

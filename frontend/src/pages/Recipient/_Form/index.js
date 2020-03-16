@@ -1,25 +1,17 @@
 import React /* , { useState, useEffect } */ from 'react';
-import { Form, Input } from '@rocketseat/unform';
+import { Form } from '@unform/web';
 import * as Yup from 'yup';
 // import { differenceInCalendarYears, parseISO } from 'date-fns';
 import PropTypes from 'prop-types';
 
-import { FieldGroupForm as Fieldset, FormLayout } from '../../../components';
+import { FieldGroupForm as Fieldset, FormLayout, Input } from '../../../components';
 
-export default function StudentForm({
+export default function RecipientForm({
   title,
   initialData,
   handleSubmit,
   loadingSubmit,
 }) {
-  /* const [name, setName] = useState('');
-  const [street, setStreet] = useState('');
-  const [number, setNumber] = useState('');
-  const [complement, setComplement] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
-  const [zip_code, setZip_code] = useState(''); */
-
   const schema = Yup.object().shape({
     name: Yup.string()
       .min(7, 'Nome precisa de ao menos 7 caracteres')
@@ -48,7 +40,7 @@ export default function StudentForm({
   return (
     <FormLayout>
       <Form initialData={initialData} onSubmit={handleSubmit} schema={schema}>
-        <Fieldset title={title} back="/recipient" loading={loadingSubmit} />
+        <Fieldset title={title} back="/destinatario" loading={loadingSubmit} />
 
         <div>
           <section>
@@ -100,7 +92,15 @@ export default function StudentForm({
           <section>
             <label htmlFor="zip_code">
               CEP
-              <Input name="zip_code" type="text" id="zip_code" required />
+              <Input
+                name="zip_code"
+                type="text"
+                id="zip_code"
+                required
+                mask="99999-999"
+                defaultValue={initialData.zip_code}
+                initial={initialData.zip_code ? 'true' : 'false'}
+              />
             </label>
           </section>
         </div>
@@ -109,7 +109,7 @@ export default function StudentForm({
   );
 }
 
-StudentForm.propTypes = {
+RecipientForm.propTypes = {
   title: PropTypes.string.isRequired,
   initialData: PropTypes.shape({
     name: PropTypes.string,
@@ -118,12 +118,12 @@ StudentForm.propTypes = {
     complement: PropTypes.string,
     city: PropTypes.string,
     state: PropTypes.string,
-    zip_code: PropTypes.string,
+    zip_code: PropTypes.number,
   }),
   handleSubmit: PropTypes.func.isRequired,
   loadingSubmit: PropTypes.bool.isRequired,
 };
 
-StudentForm.defaultProps = {
+RecipientForm.defaultProps = {
   initialData: {},
 };

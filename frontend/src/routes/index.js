@@ -23,24 +23,24 @@ export default function Routes() {
     <Switch>
       <Route path="/" exact component={SignIn} />
 
-      <Route path="/recipient.new" component={RecipientNew} isPrivate />
-      <Route path="/recipient" component={Recipient} isPrivate exact />
-      <Route path="/recipient.edit/:id" component={RecipientEdit} isPrivate />
+      <Route path="/destinatario.cadastrar" component={RecipientNew} isPrivate />
+      <Route path="/destinatario" component={Recipient} isPrivate exact />
+      <Route path="/destinatario.editar/:id" component={RecipientEdit} isPrivate />
 
-      <Route path="/delivery.new" component={DeliveryNew} isPrivate />
-      <Route path="/delivery" component={Delivery} isPrivate exact />
-      <Route path="/delivery.edit/:id" component={DeliveryEdit} isPrivate />
+      <Route path="/encomenda.cadastrar" component={DeliveryNew} isPrivate />
+      <Route path="/encomenda" component={Delivery} isPrivate exact />
+      <Route path="/encomenda.editar/:id" component={DeliveryEdit} isPrivate />
 
-      <Route path="/deliveryman.new" component={DeliverymanNew} isPrivate />
-      <Route path="/deliveryman" component={Deliveryman} isPrivate exact />
+      <Route path="/entregador.cadastrar" component={DeliverymanNew} isPrivate />
+      <Route path="/entregador" component={Deliveryman} isPrivate exact />
       <Route
-        path="/deliveryman.edit/:id"
+        path="/entregador.editar/:id"
         component={DeliverymanEdit}
         isPrivate
         exact
       />
 
-      <Route path="/problem" component={Problem} isPrivate />
+      <Route path="/problema" component={Problem} isPrivate />
     </Switch>
   );
 }

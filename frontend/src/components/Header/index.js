@@ -34,12 +34,12 @@ export default function Header() {
             </section>
 
             <section>
-              <NavLink to="/delivery" activeClassName="chosen" exact={false}>
+              <NavLink to="/encomenda" activeClassName="chosen" exact={false}>
                 <span>ENCOMENDAS</span>
                 <MdEvent />
               </NavLink>
               <NavLink
-                to="/deliveryman"
+                to="/entregador"
                 activeClassName="chosen"
                 exact={false}
               >
@@ -47,7 +47,7 @@ export default function Header() {
                 <MdCardMembership />
               </NavLink>
               <NavLink
-                to="/recipient"
+                to="/destinatario"
                 activeClassName="chosen"
                 exact={false}
                 strict={false}
@@ -55,7 +55,7 @@ export default function Header() {
                 <span>DESTINATÁRIOS</span>
                 <MdPersonOutline />
               </NavLink>
-              <NavLink to="/problem" activeClassName="chosen" exact={false}>
+              <NavLink to="/problema" activeClassName="chosen" exact={false}>
                 <span>PROBLEMAS</span>
                 <MdHelpOutline />
               </NavLink>

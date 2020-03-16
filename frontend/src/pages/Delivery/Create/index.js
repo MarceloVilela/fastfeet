@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import FormPlan from '../_Form';
+import FormDelivery from '../_Form';
 import api from '~/services/api';
 import { Container } from '../../../components';
 
-export default function PlanCreate() {
+export default function DeliveryCreate() {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async ({ recipientId, deliverymanId, product }) => {
@@ -21,7 +21,7 @@ export default function PlanCreate() {
 
   return (
     <Container>
-      <FormPlan
+      <FormDelivery
         title="Cadastro de entregas"
         initialData={{}}
         handleSubmit={handleSubmit}

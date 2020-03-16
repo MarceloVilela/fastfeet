@@ -1,52 +1,55 @@
 import * as Yup from 'yup';
 import { Op } from 'sequelize';
 import Recipient from '../models/Recipient';
-//import Registration from '../models/Registration';
+// import Registration from '../models/Registration';
 
 class RecipientController {
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
+      street: Yup.string().required(),
       number: Yup.number().required(),
       complement: Yup.string().required(),
       state: Yup.string().required(),
       city: Yup.string().required(),
-      zip_code: Yup.number().required()
+      zip_code: Yup.number().required(),
     });
 
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation fails' });
     }
 
-    const recipientExists = await Recipient.findOne({ where: { 
-      name: req.body.name,
-      zip_code: req.body.zip_code,
-      number: req.body.number 
-    } });
+    const recipientExists = await Recipient.findOne({
+      where: {
+        name: req.body.name,
+        zip_code: req.body.zip_code,
+        number: req.body.number,
+      },
+    });
 
     if (recipientExists) {
       return res.status(400).json({ error: 'Recipient already exists.' });
     }
 
     const {
-      id, name, number, complement, state, city, zip_code
+      id, name, number, complement, state, city, zip_code,
     } = await Recipient.create(req.body);
 
     return res.json({
-      id, name, number, complement, state, city, zip_code
+      id, name, number, complement, state, city, zip_code,
     });
   }
 
   async index(req, res) {
     const { page, q } = req.query;
-    const where = q ? { name: { [Op.iLike]: `%${q}%` }, canceled_at: null } : { /*canceled_at: null*/ };
+    const where = q ? { name: { [Op.iLike]: `%${q}%` }, canceled_at: null } : { /* canceled_at: null */ };
 
     const options = {
       page,
       paginate: 10,
       order: [['id', 'ASC']],
       where,
-      /*include: [
+      /* include: [
         {
           model: Registration,
           as: 'registration',
@@ -54,7 +57,7 @@ class RecipientController {
           where: { canceled_at: null },
           required: false,
         },
-      ],*/
+      ], */
     };
 
     const { docs, pages, total } = await Recipient.paginate(options);
@@ -84,15 +87,16 @@ class RecipientController {
   async update(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
+      street: Yup.string().required(),
       number: Yup.number().required(),
       complement: Yup.string().required(),
       state: Yup.string().required(),
       city: Yup.string().required(),
-      zip_code: Yup.number().required()
+      zip_code: Yup.number().required(),
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails' });
+      return res.status(400).json({ error: 'Validation fails==' });
     }
 
     const RecipientExists = await Recipient.findOne({ where: { id: req.params.id } });

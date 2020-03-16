@@ -5,10 +5,16 @@ import Deliveryman from '../models/Deliveryman';
 
 class DeliverymanController {
   async store(req, res) {
+    console.log('req.file o/', req.file);
+
     const schema = Yup.object().shape({
       name: Yup.string().required(),
       email: Yup.string().email().required(),
     });
+
+    const { filename: image } = req.file;
+
+    console.log('pimba', image);
 
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation fails' });
@@ -26,7 +32,7 @@ class DeliverymanController {
 
     const {
       id, name, email, avatar_id,
-    } = await Deliveryman.create({ ...req.body, avatar_id: 'zaq1' });
+    } = await Deliveryman.create({ ...req.body, avatar_id: image });
 
     return res.json({
       id, name, email, avatar_id,
@@ -78,6 +84,8 @@ class DeliverymanController {
   }
 
   async update(req, res) {
+    console.log('req.file o/', req.file);
+
     const schema = Yup.object().shape({
       name: Yup.string().required(),
       email: Yup.string().email().required(),
@@ -87,14 +95,22 @@ class DeliverymanController {
       return res.status(400).json({ error: 'Validation fails' });
     }
 
-    const DeliverymanExists = await Deliveryman.findOne({ where: { id: req.params.id } });
+    const deliverymanExists = await Deliveryman.findOne({ where: { id: req.params.id } });
 
-    if (!DeliverymanExists) {
+    if (!deliverymanExists) {
       return res.status(400).json({ error: 'Deliveryman not found.' });
     }
 
+    let avatar = deliverymanExists.avatar_id;
+    if (req.file) {
+      const { filename: image } = req.file;
+      avatar = image;
+    }
+
+    console.log('pimba', avatar);
+
     const returnUpdate = await Deliveryman.update(
-      { ...req.body, avatar_id: 'zaq1' },
+      { ...req.body, avatar_id: avatar },
       { where: { id: req.params.id }, returning: true },
     );
 

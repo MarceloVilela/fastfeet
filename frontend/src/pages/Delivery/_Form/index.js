@@ -1,34 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Input } from '@rocketseat/unform';
+import { Form } from '@unform/web';
 import * as Yup from 'yup';
-import AsyncSelect from 'react-select/async';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 
-import { FieldGroupForm as Fieldset, FormLayout } from '../../../components';
+import {
+  SelectAsync, FieldGroupForm as Fieldset, FormLayout, Input,
+} from '../../../components';
 
 import api from '~/services/api';
 
-export default function RegistrationForm({
+export default function DeliveryForm({
   title,
   initialData,
   handleSubmit,
   loadingSubmit,
   // registrationEdit,
 }) {
-  const [deliverymanId, setDeliverymanId] = useState('');
-  const [recipientId, setRecipientId] = useState('');
-
   const [recipientDefault, setRecipientDefault] = useState('');
   const [deliverymanDefault, setDeliverymanDefault] = useState('');
-
-  const handleDeliveryman = (selectedData) => {
-    setDeliverymanId(selectedData.value);
-  };
-
-  const handleRecipient = (selectedData) => {
-    setRecipientId(selectedData.value);
-  };
 
   const formatOptionRecipient = (opt) => ({
     value: opt.id,
@@ -50,12 +40,8 @@ export default function RegistrationForm({
 
     if (recipient) {
       setRecipientDefault(formatOptionRecipient(recipient));
-      setRecipientId(recipient.id);
-
       setDeliverymanDefault(formatOptionDeliveryman(deliveryman));
-      setDeliverymanId(deliveryman.id);
     }
-
   }, [initialData]);
 
   /*
@@ -96,81 +82,71 @@ export default function RegistrationForm({
       .required('Preencha este campo'),
   });
 
-  const waitSelectDefaultValue = !initialData.recipient || (initialData.recipient && recipientDefault)
-
   return (
     <FormLayout>
-      {waitSelectDefaultValue &&
-        <Form initialData={initialData} onSubmit={handleSubmit} schema={schema}>
-          <Fieldset title={title} back="/delivery" loading={loadingSubmit} />
+      <Form initialData={initialData} onSubmit={handleSubmit} schema={schema}>
+        <Fieldset title={title} back="/encomenda" loading={loadingSubmit} />
 
-          <div className="break-row">
-            <section>
-              <label htmlFor="recipient">
-                Destinatário
-              <AsyncSelect
-                  name="recipient"
-                  cacheOptions
-                  defaultOptions
-                  loadOptions={loadRecipientByName}
-                  placeholder="Selecionar destinatário"
-                  onChange={(selected) => handleRecipient(selected)}
-                  defaultValue={recipientDefault}
-                />
-                <Input
-                  name="recipientId"
-                  type="hidden"
-                  readOnly
-                  value={recipientId}
-                />
-              </label>
-            </section>
+        <div className="break-row">
+          <section>
+            <label htmlFor="recipient">
+              Destinatário
+              <SelectAsync
+                name="recipientId"
+                cacheOptions
+                defaultOptions
+                loadOptions={loadRecipientByName}
+                placeholder="Selecionar destinatário"
+                defaultValue={recipientDefault}
+                initial={!!initialData.recipient}
+              />
+            </label>
+          </section>
 
-            <section>
-              <label htmlFor="deliveryman">
-                Entregador
-              <AsyncSelect
-                  name="deliveryman"
-                  cacheOptions
-                  defaultOptions
-                  loadOptions={loadDeliverymenByName}
-                  placeholder="Selecionar entregador"
-                  onChange={(selected) => handleDeliveryman(selected)}
-                  defaultValue={deliverymanDefault}
-                />
-                <Input
-                  name="deliverymanId"
-                  type="hidden"
-                  readOnly
-                  value={deliverymanId}
-                />
-              </label>
-            </section>
-          </div>
+          <section>
+            <label htmlFor="deliveryman">
+              Entregador
+              <SelectAsync
+                name="deliverymanId"
+                cacheOptions
+                defaultOptions
+                loadOptions={loadDeliverymenByName}
+                placeholder="Selecionar entregador"
+                defaultValue={deliverymanDefault}
+                initial={!!initialData.recipient}
+              />
+            </label>
+          </section>
+        </div>
 
-          <div>
-            <section>
-              <label htmlFor="product">
-                Nome do produto
+        <div>
+          <section>
+            <label htmlFor="product">
+              Nome do produto
               <Input name="product" type="text" id="product" required />
-              </label>
-            </section>
-          </div>
-        </Form>
-      }
+            </label>
+          </section>
+        </div>
+      </Form>
     </FormLayout>
   );
 }
 
-RegistrationForm.propTypes = {
+DeliveryForm.propTypes = {
   title: PropTypes.string.isRequired,
   initialData: PropTypes.shape({
-    student: PropTypes.shape({
+    recipient: PropTypes.shape({
       id: PropTypes.number,
       name: PropTypes.string,
+      street: PropTypes.string,
+      number: PropTypes.number,
+      city: PropTypes.string,
+      state: PropTypes.string,
     }),
-    plan: PropTypes.shape({
+    deliveryman: PropTypes.shape({
       id: PropTypes.number,
+      name: PropTypes.string,
+      email: PropTypes.string,
     }),
     product: PropTypes.string,
   }),
@@ -179,7 +155,7 @@ RegistrationForm.propTypes = {
   // registrationEdit: PropTypes.bool,
 };
 
-RegistrationForm.defaultProps = {
+DeliveryForm.defaultProps = {
   initialData: {},
   // registrationEdit: false,
 };

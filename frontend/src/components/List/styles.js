@@ -8,7 +8,9 @@ export const Wrap = styled.ul`
   li {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     color: #666;
+    background-color: #FFF;
     font-size: 16px;
     padding: 10px 20px;
     margin-bottom: 10px;
@@ -37,7 +39,7 @@ export const Wrap = styled.ul`
 
     span,
     span.edit {
-      color: #0000ff;
+      /*color: #0000ff;*/
     }
 
     span.delete {
@@ -47,10 +49,6 @@ export const Wrap = styled.ul`
     a {
       margin-right: 10px;
     }
-  }
-
-  li:nth-child(even) {
-    background-color: #f9f9f9;
   }
 
   @media screen and (max-width: 1024px) {

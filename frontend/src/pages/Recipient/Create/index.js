@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import FormStudent from '../_Form';
+import FormRecipient from '../_Form';
 import api from '~/services/api';
 import { Container } from '../../../components';
 
-export default function StudentUpdate() {
+export default function RecipientUpdate() {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async ({
@@ -26,8 +26,8 @@ export default function StudentUpdate() {
 
   return (
     <Container>
-      <FormStudent
-        title="---"
+      <FormRecipient
+        title="Cadastro de destinatário"
         initialData={{}}
         handleSubmit={handleSubmit}
         loadingSubmit={loading}

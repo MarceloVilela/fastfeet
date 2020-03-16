@@ -1,112 +1,61 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { MdInfo, MdEdit, MdDelete } from 'react-icons/md';
+import {
+  MdMoreHoriz, MdInfo, MdEdit, MdDelete,
+} from 'react-icons/md';
 import { Link } from 'react-router-dom';
+
+import { Item, Description, Wrapper } from './styles';
 
 export default function Options({
   handleInfo,
   linkEdit,
-  handleDelete
+  handleDelete,
 }) {
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(false);
 
-  /*const handleBlur = () => {
+  /* const handleBlur = () => {
     console.log('blur')
     setVisible(false)
-  }*/
+  } */
 
   return (
     <div>
-      <p
+      <Item
         onClick={() => setVisible(!visible)}
-        //onFocus={console.log('focus1')}
-      >AAA</p>
-      {visible &&
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'baseline',
-            border: '1px solid red',
-            position: 'absolute',
-            right: '20px'
-          }}
-        //onMouseLeave={console.log('blur')}
-        //onFocus={console.log('focus')}
-        >
-          <button
-            type="button"
-            className="info"
-            onClick={handleInfo}
-          >
-            <MdInfo style={{ marginRight: '10px' }} />
-            visualizar
-          </button>
+      // onFocus={console.log('focus1')}
+      >
+        <MdMoreHoriz />
+      </Item>
+      {visible
+        && (
+          <Wrapper>
+            <Item onClick={handleInfo} className="info">
+              <MdInfo />
+              <Description>Visualizar</Description>
+            </Item>
 
-          <Link to={linkEdit} className="edit">
-            <button
-              type="button"
-              className="info"
-              onClick={handleInfo}
-            >
-              <MdEdit style={{ marginRight: '10px' }} />
-            editar
-          </button>
+            <Item className="edit">
+              <Link to={linkEdit}>
+                <MdEdit />
+                <Description>Editar</Description>
+              </Link>
+            </Item>
 
-          </Link>
-
-          <button
-            type="button"
-            className="warning"
-            onClick={handleDelete}
-          >
-            <MdDelete style={{ marginRight: '10px' }} />
-            apagar
-          </button>
-        </div>
-      }
+            <Item onClick={handleDelete} className="delete">
+              <MdDelete />
+              <Description>Apagar</Description>
+            </Item>
+          </Wrapper>
+        )}
     </div>
   );
-  /*return (
-    <FieldGroup>
-      <h1>{title}</h1>
-
-      <article>
-        {inputPlaceholder && (
-          <div>
-            <InputContainer>
-              <MdSearch
-                style={{
-                  left: '5px', top: '10px', position: 'relative', zIndex: 9,
-                }}
-              />
-              <input
-                type="text"
-                name="search"
-                placeholder={inputPlaceholder}
-                onChange={(e) => handleInput(e.target.value)}
-              />
-            </InputContainer>
-          </div>
-        )}
-
-        {location && (
-          <Link to={location}>
-            <button type="button">
-              <MdAdd style={{ marginRight: '10px' }} />
-              CADASTRAR
-            </button>
-          </Link>
-        )}
-      </article>
-    </FieldGroup>
-  );*/
 }
 
 Options.propTypes = {
   handleInfo: PropTypes.func,
   linkEdit: PropTypes.string,
-  handleDelete: PropTypes.func
+  handleDelete: PropTypes.func,
 };
 
 Options.defaultProps = {

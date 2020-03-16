@@ -2,34 +2,34 @@ import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 
-import FormStudent from '../_Form';
+import FormDelivery from '../_Form';
 import api from '~/services/api';
 import { Container } from '../../../components';
 
-export default function PlanUpdate({ match }) {
-  const [plan, setPlan] = useState({});
+export default function DeliveryUpdate({ match }) {
+  const [item, setItem] = useState({});
   const [loading, setLoading] = useState(false);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
 
   useEffect(() => {
-    async function loadPlan() {
+    async function loadItem() {
       setLoading(true);
       try {
         const response = await api.get(`deliveries/${match.params.id}`);
-        setPlan(response.data);
+        setItem(response.data);
       } catch (error) {
         toast.error('Erro ao listar encomenda');
       }
       setLoading(false);
     }
 
-    loadPlan();
+    loadItem();
   }, [match.params.id]);
 
   const handleSubmit = async ({ recipientId, deliverymanId, product }) => {
     setLoadingSubmit(true);
     try {
-      await api.put(`deliveries/${match.params.id}`, { recipient_id: recipientId, deliveryman_id: deliverymanId, product });
+      await api.put(`deliveries/${match.params.id}`, { recipientId, deliverymanId, product });
       toast.success('Encomenda editado com sucesso');
     } catch (error) {
       toast.error('Erro ao editar encomenda');
@@ -39,9 +39,9 @@ export default function PlanUpdate({ match }) {
 
   return (
     <Container loading={loading}>
-      <FormStudent
+      <FormDelivery
         title="Edição de encomenda"
-        initialData={plan}
+        initialData={item}
         handleSubmit={handleSubmit}
         loadingSubmit={loadingSubmit}
       />
@@ -49,7 +49,7 @@ export default function PlanUpdate({ match }) {
   );
 }
 
-PlanUpdate.propTypes = {
+DeliveryUpdate.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,

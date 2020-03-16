@@ -1,10 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Form, Input } from '@rocketseat/unform';
+import { Form } from '@unform/web';
 import * as Yup from 'yup';
 
 import { signInRequest } from '~/store/modules/auth/actions';
+import { Input } from '../../components';
 
 import logo from '~/assets/fastfeet-logo.svg';
 

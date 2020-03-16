@@ -7,12 +7,13 @@ import {
   FieldGroupList,
   List,
   Modal,
+  Options,
   Pagination,
 } from '../../../components';
-import ProblemPreview from '../Preview';
+import ProblemPreview from './Preview';
 
-export default function HelpShow() {
-  const [helps, setHelps] = useState([]);
+export default function ProblemShow() {
+  const [itens, setItens] = useState([]);
   const [page, setPage] = useState(1);
   const [pageTotal, setPageTotal] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -20,14 +21,14 @@ export default function HelpShow() {
   const [currentHelp, setCurrentHelp] = useState({});
   const [openModal, setOpenModal] = useState(false);
 
-  const loadHelps = useCallback(async () => {
+  const loadItens = useCallback(async () => {
     setLoading(true);
     try {
       const {
         data: { docs, pages },
-      } = await api.get(`problems?page=${page}`);
+      } = await api.get(`problem?page=${page}`);
       setPageTotal(pages);
-      setHelps(docs);
+      setItens(docs);
     } catch (error) {
       toast.error('Erro ao listar problemas');
     }
@@ -35,8 +36,8 @@ export default function HelpShow() {
   }, [page]);
 
   useEffect(() => {
-    loadHelps();
-  }, [page, loadHelps]);
+    loadItens();
+  }, [page, loadItens]);
 
   const handleAnswer = (help) => {
     setCurrentHelp(help);
@@ -63,21 +64,15 @@ export default function HelpShow() {
             <strong>Ações</strong>
           </div>
         </li>
-        {helps.map((help) => (
-          <li key={help.id}>
+        {itens.map((item) => (
+          <li key={item.id}>
             <div>
               #
-              {help.delivery_id}
+              {item.delivery_id}
             </div>
-            <div>{help.description}</div>
+            <div>{item.description}</div>
             <div>
-              <button
-                type="button"
-                className="info"
-                onClick={() => handleAnswer(help)}
-              >
-                responder
-              </button>
+              <Options handleInfo={() => { handleAnswer(item); }} handleDelete={() => { }} />
             </div>
           </li>
         ))}
@@ -88,7 +83,7 @@ export default function HelpShow() {
         <ProblemPreview
           data={currentHelp}
           reset={handlePropagatesClose}
-          cbAnswer={loadHelps}
+          cbAnswer={loadItens}
         />
       </Modal>
     </Container>

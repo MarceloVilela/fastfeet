@@ -1,5 +1,7 @@
 import { Router } from 'express';
 
+import multer from 'multer';
+
 import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
 
@@ -21,6 +23,12 @@ import HelpQuestionController from './app/controllers/HelpQuestionController';
 import HelpAnswerController from './app/controllers/HelpAnswerController';
 */
 import authMiddleware from './app/middlewares/auth';
+
+import uploadConfig from './config/upload';
+
+console.log('config', uploadConfig);
+
+const upload = multer(uploadConfig);
 
 const routes = new Router();
 
@@ -64,10 +72,10 @@ routes.get('/recipients', RecipientController.index);
 routes.put('/recipients/:id', RecipientController.update);
 routes.delete('/recipients/:id', RecipientController.delete);
 
-routes.post('/deliverymen', DeliverymanController.store);
+routes.post('/deliverymen', upload.single('file'), DeliverymanController.store);
 routes.get('/deliverymen/:id', DeliverymanController.show);
 routes.get('/deliverymen', DeliverymanController.index);
-routes.put('/deliverymen/:id', DeliverymanController.update);
+routes.put('/deliverymen/:id', upload.single('file'), DeliverymanController.update);
 routes.delete('/deliverymen/:id', DeliverymanController.delete);
 
 routes.post('/deliveries', DeliveryController.store);

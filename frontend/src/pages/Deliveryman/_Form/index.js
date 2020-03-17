@@ -31,31 +31,6 @@ export default function RegistrationForm({
     avatar: Yup.string().nullable(),
   });
 
-  const validateBeforeSubmit = async function (data, helpers) {
-    try {
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-      // Validation passed
-      console.log('ok', data);
-      handleSubmit();
-    } catch (err) {
-      const validationErrors = {};
-
-      if (err instanceof Yup.ValidationError) {
-        // Validation failed
-        console.log('err', err);
-        console.log('data', data);
-        console.log('helpers', helpers);
-
-        err.inner.forEach((error) => {
-          validationErrors[error.path] = error.message;
-        });
-        formRef.current.setErrors(validationErrors);
-      }
-    }
-  };
-
   const formRef = useRef(null);
 
   return (
@@ -78,6 +53,7 @@ export default function RegistrationForm({
                 <img
                   src={`http://localhost:3333/files/${initialData.avatar_id}`}
                   data-src={`https://whattt.glitch.me/files/${initialData.avatar_id}`}
+                  alt="Preview-Uploaded"
                 />
               )}
             <MdImage />

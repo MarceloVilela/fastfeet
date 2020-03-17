@@ -85,6 +85,7 @@ export default function DeliverymanShow() {
                 src={`http://localhost:3333/files/${item.avatar_id}`}
                 data-src={`https://whattt.glitch.me/files/${item.avatar_id}`}
                 style={{ width: '40px', height: '40px', borderRadius: '50%' }}
+                alt="Preview"
               />
             </div>
             <div>{item.name}</div>

@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { useField } from '@unform/core';
-import ReactInputMask, { Props as InputProps } from 'react-input-mask';
+import ReactInputMask/*, { Props as InputProps }*/ from 'react-input-mask';
 
-interface Props extends InputProps {
-  name: string;
-}
+//interface Props extends InputProps {
+//  name: string;
+//}
 
 export default function Input({ name, ...rest }) {
   const inputRef = useRef(null);

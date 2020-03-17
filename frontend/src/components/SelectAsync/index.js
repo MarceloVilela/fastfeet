@@ -7,7 +7,7 @@ interface Props extends AsyncProps<OptionTypeBase> {
 }
 const SelectAsync: React.FC<Props> = ({ name, ...rest }) => {
   const selectRef = useRef(null);
-  const { fieldName, defaultValue, registerField, error } = useField(name);
+  const { fieldName, defaultValue, registerField/*, error*/ } = useField(name);
   useEffect(() => {
     registerField({
       name: fieldName,

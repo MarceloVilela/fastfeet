@@ -39,5 +39,10 @@ export default function Input({ name, ...rest }) {
     return <input></input>;
   }
 
-  return <ReactInputMask ref={inputRef} defaultValue={defaultValue} {...rest} />
+  return (
+    <React.Fragment>
+      <ReactInputMask ref={inputRef} defaultValue={defaultValue} {...rest} />
+      {error && <span className="error">{error}</span>}
+    </React.Fragment>
+  );
 }

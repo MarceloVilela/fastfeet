@@ -29,7 +29,7 @@ export default function DeliveryUpdate({ match }) {
   const handleSubmit = async ({ recipientId, deliverymanId, product }) => {
     setLoadingSubmit(true);
     try {
-      await api.put(`deliveries/${match.params.id}`, { recipientId, deliverymanId, product });
+      await api.put(`deliveries/${match.params.id}`, { recipient_id: recipientId, deliveryman_id: deliverymanId, product });
       toast.success('Encomenda editado com sucesso');
     } catch (error) {
       toast.error('Erro ao editar encomenda');

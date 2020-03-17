@@ -22,10 +22,9 @@ const SelectAsync: React.FC<Props> = ({ name, ...rest }) => {
             (option: OptionTypeBase) => option.value,
           );
         } else {
-          if (!ref.select.state || !ref.select.state.value) {
-            return '';
-          }
-          return ref.select.state.value.value;
+          return !isNaN(selectRef.current.select.state.value.value)
+            ? parseInt(selectRef.current.select.state.value.value)
+            : selectRef.current.select.state.value.value;
         }
       },
     });

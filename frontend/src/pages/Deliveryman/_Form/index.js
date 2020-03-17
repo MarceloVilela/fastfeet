@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { MdImage } from 'react-icons/md';
@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import {
   FieldGroupForm as Fieldset, FormLayout, ImageInput, Input,
 } from '../../../components';
+import formValidation from '../../../services/formValidation';
 
 export default function RegistrationForm({
   title,
@@ -18,10 +19,16 @@ export default function RegistrationForm({
     name: Yup.string()
       .min(7, 'Nome precisa de ao menos 7 caracteres')
       .required('Preencha este campo'),
-    email: Yup.string().email().required('Email inválido'),
-    avatar: Yup.object().shape({
-      name: Yup.string().required(),
-    }),
+    email: Yup.string().email('Email inválido').required('Email inválido'),
+    // avatar: Yup.object().shape({
+    //  name: Yup.string().required(),
+    // }),
+    // avatar: Yup.object().shape({
+    //  File: Yup.object().shape({
+    //    name: Yup.string().required(),
+    //  }).label('File'),
+    // }),
+    avatar: Yup.string().nullable(),
   });
 
   const validateBeforeSubmit = async function (data, helpers) {
@@ -30,21 +37,35 @@ export default function RegistrationForm({
         abortEarly: false,
       });
       // Validation passed
-      console.log(data);
+      console.log('ok', data);
       handleSubmit();
     } catch (err) {
+      const validationErrors = {};
+
       if (err instanceof Yup.ValidationError) {
         // Validation failed
         console.log('err', err);
         console.log('data', data);
         console.log('helpers', helpers);
+
+        err.inner.forEach((error) => {
+          validationErrors[error.path] = error.message;
+        });
+        formRef.current.setErrors(validationErrors);
       }
     }
   };
 
+  const formRef = useRef(null);
+
   return (
     <FormLayout>
-      <Form initialData={initialData} onSubmit={(data, helpers) => validateBeforeSubmit(data, helpers)} schema={schema}>
+      <Form
+        initialData={initialData}
+        /* onSubmit={(data, helpers) => validateBeforeSubmit(data, helpers)} */
+        onSubmit={(data, helpers) => formValidation(data, helpers, schema, handleSubmit, formRef)}
+        ref={formRef}
+      >
         <Fieldset title={title} back="/entregador" loading={loadingSubmit} />
 
         <div>

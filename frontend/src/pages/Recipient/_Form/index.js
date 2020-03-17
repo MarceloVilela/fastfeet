@@ -1,10 +1,11 @@
-import React /* , { useState, useEffect } */ from 'react';
+import React, { useRef } from 'react';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 // import { differenceInCalendarYears, parseISO } from 'date-fns';
 import PropTypes from 'prop-types';
 
 import { FieldGroupForm as Fieldset, FormLayout, Input } from '../../../components';
+import formValidation from '../../../services/formValidation';
 
 export default function RecipientForm({
   title,
@@ -19,7 +20,7 @@ export default function RecipientForm({
     street: Yup.string()
       .min(7, 'Rua precisa de ao menos 5 caracteres')
       .required('Preencha este campo'),
-    number: Yup.string()
+    number: Yup.number()
       .min(1, 'Número precisa estar entre 1 e 9999')
       .max(9999, 'Número precisa estar entre 1 e 9999')
       .required('Preencha este campo'),
@@ -33,13 +34,23 @@ export default function RecipientForm({
       .min(7, 'Estado precisa de ao menos 5 caracteres')
       .required('Preencha este campo'),
     zip_code: Yup.string()
-      .min(7, 'CEP precisa de ao menos 9 caracteres')
+      .min(9, 'CEP precisa de ao menos 9 caracteres')
+      .matches(/^\d{5}-\d{3}$/, {
+        message: 'CEP precisa estar no formato 99999-999',
+        excludeEmptyString: true,
+      })
       .required('Preencha este campo'),
   });
 
+  const formRef = useRef(null);
+
   return (
     <FormLayout>
-      <Form initialData={initialData} onSubmit={handleSubmit} schema={schema}>
+      <Form
+        initialData={initialData}
+        onSubmit={(data, helpers) => formValidation(data, helpers, schema, handleSubmit, formRef)}
+        ref={formRef}
+      >
         <Fieldset title={title} back="/destinatario" loading={loadingSubmit} />
 
         <div>
@@ -62,7 +73,7 @@ export default function RecipientForm({
           <section>
             <label htmlFor="number">
               Número
-              <Input name="number" type="text" id="number" required />
+              <Input name="number" type="number" id="number" required />
             </label>
           </section>
 

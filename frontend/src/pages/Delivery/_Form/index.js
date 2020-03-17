@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import {
   SelectAsync, FieldGroupForm as Fieldset, FormLayout, Input,
 } from '../../../components';
-
+import formValidation from '../../../services/formValidation';
 import api from '~/services/api';
 
 export default function DeliveryForm({
@@ -82,9 +82,15 @@ export default function DeliveryForm({
       .required('Preencha este campo'),
   });
 
+  const formRef = useRef(null);
+
   return (
     <FormLayout>
-      <Form initialData={initialData} onSubmit={handleSubmit} schema={schema}>
+      <Form
+        initialData={initialData}
+        onSubmit={(data, helpers) => formValidation(data, helpers, schema, handleSubmit, formRef)}
+        ref={formRef}
+      >
         <Fieldset title={title} back="/encomenda" loading={loadingSubmit} />
 
         <div className="break-row">

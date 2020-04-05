@@ -4,11 +4,11 @@ import { RectButton } from 'react-native-gesture-handler';
 import { color } from '~/styles/values.js';
 
 export const DeliveryItemWrap = styled(RectButton)`
+  padding: 0;
   margin-bottom: 15px;
-  padding: 10px;
   border: 1px solid #eee;
   border-radius: 4px;
-  background: #fff;
+  background: ${color['white']};
 
   display: flex;
   flex-direction: column;
@@ -58,13 +58,14 @@ export const SeeMoreText = styled.Text`
 
 export const Timeline = styled.View`
   flex-direction: row;
-  justify-content: space-between
+  justify-content: space-between;
+  padding-top: 5px;
 `;
 
 export const Steep = styled.View`
   flex: 1;
-  border: 0 solid #7159c1;
-  border-top-width: 1px;
+  /*border: 0 solid ${color['primary']};
+  border-top-width: 1px;*/
   align-items: center;
   text-align: center;
 `;
@@ -74,7 +75,7 @@ export const Indicator = styled.View`
   height: 10px;
   border-radius: 5px;
   border: 1px solid #7159c1;
-  background-color: ${props => props.checked ? '#7159c1' : '#ffffff'};
+  background-color: ${props => props.checked ? color['primary'] : color['white']};
   margin: 0 auto;
   top: -5px;
 `;

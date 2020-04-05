@@ -32,7 +32,7 @@ export default function SignIn() {
           onChangeText={setId}
         />
 
-        <SubmitButton loading={loading} onPress={handleSubmit}>
+        <SubmitButton onPress={handleSubmit} loading={loading}>
           Entrar no sistema
         </SubmitButton>
       </Form>

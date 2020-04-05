@@ -37,7 +37,7 @@ export default function HelpNew({ navigation, route }) {
   };
 
   return (
-    <Container loading={loadingSubmit} scrollable spaced>
+    <Container scrollable spaced>
       <Form>
         <FormInput
           autoCorrect={false}

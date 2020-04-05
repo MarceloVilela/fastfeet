@@ -1,8 +1,8 @@
 /*https://getbootstrap.com/docs/4.0/utilities/colors/*/
 export const color = {
-  primary: "#9767ec",
+  primary: "#7D40E7",/* #9767ec */
   secondary: "#666666",
-  success: "33ff33",
+  success: "#82BF18",
   danger: "#e84c4c",
   warning: "#e7bb43",
   info: "#17a2b8",

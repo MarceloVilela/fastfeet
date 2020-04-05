@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 
 import Input from '~/components/Input';
 import Button from '~/components/Button';
+import { color } from '~/styles/values';
 
 export const Container = styled.KeyboardAvoidingView.attrs({
   enabled: Platform.OS === 'ios',
@@ -12,7 +13,7 @@ export const Container = styled.KeyboardAvoidingView.attrs({
   justify-content: center;
   align-items: center;
   padding: 0 30px;
-  background-color: #7D60F7;
+  background-color: ${color['primary']};
 `;
 
 export const Form = styled.View`
@@ -22,12 +23,12 @@ export const Form = styled.View`
 
 export const FormInput = styled(Input)`
   margin-bottom: 10px;
-  background-color: #FFF;
+  background-color: ${color['white']};
 `;
 
 export const SubmitButton = styled(Button)`
   margin-top: 5px;
-  background-color: #82bf18;
+  background-color: ${color['success']};
 `;
 
 export const SignLink = styled.TouchableOpacity`
@@ -35,7 +36,7 @@ export const SignLink = styled.TouchableOpacity`
 `;
 
 export const SignLinkText = styled.Text`
-  color: #fff;
+  color: ${color['white']};
   font-weight: bold;
   font-size: 16px;
 `;

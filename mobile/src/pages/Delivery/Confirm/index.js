@@ -71,7 +71,7 @@ export default function DeliveryConfirm({ navigation, route }) {
   }
 
   return (
-    <Container loading={loadingSubmit} scrollable spaced>
+    <Container scrollable spaced>
 
       <CameraWrap>
         <Camera style={{ flex: 1 }} type={Camera.Constants.Type.back} ref={ref => { setCameraRef(ref) }}>

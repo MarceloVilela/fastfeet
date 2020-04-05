@@ -4,7 +4,7 @@ import { RectButton } from 'react-native-gesture-handler';
 import { color } from '~/styles/values.js';
 
 export const DeliveryItemWrap = styled(RectButton)`
-  padding: 0;
+  padding: 5px;
   margin-bottom: 15px;
   border: 1px solid #eee;
   border-radius: 4px;
@@ -39,6 +39,7 @@ export const Field = styled.View`
 
 export const Label = styled.Text`
   font-size: 12px;
+  color: ${color['muted']};
 `;
 
 export const Value = styled.Text`
@@ -60,6 +61,7 @@ export const Timeline = styled.View`
   flex-direction: row;
   justify-content: space-between;
   padding-top: 5px;
+  border: 1px solid ${color['white']};
 `;
 
 export const Steep = styled.View`
@@ -82,4 +84,6 @@ export const Indicator = styled.View`
 
 export const Caption = styled.Text`
   text-align: center;
+  font-size: 12px;
+  color: ${color['muted']};
 `;

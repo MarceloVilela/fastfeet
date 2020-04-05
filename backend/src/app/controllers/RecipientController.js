@@ -49,15 +49,6 @@ class RecipientController {
       paginate: 10,
       order: [['id', 'ASC']],
       where,
-      /* include: [
-        {
-          model: Registration,
-          as: 'registration',
-          attributes: ['id', 'plan_id'],
-          where: { canceled_at: null },
-          required: false,
-        },
-      ], */
     };
 
     const { docs, pages, total } = await Recipient.paginate(options);

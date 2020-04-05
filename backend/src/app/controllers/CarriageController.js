@@ -1,32 +1,33 @@
 import * as Yup from 'yup';
 import { Op } from 'sequelize';
 import Delivery from '../models/Delivery';
-import Deliveryman from '../models/Deliveryman';
-//import Registration from '../models/Registration';
+import Recipient from '../models/Recipient';
+// import Registration from '../models/Registration';
 
 class CarriageController {
   async index(req, res) {
     const { page } = req.query;
     const { deliveryman_id } = req.params;
     const where = { deliveryman_id, canceled_at: null };
-
+    console.log('entregador', deliveryman_id);
     const options = {
       page,
       paginate: 10,
       order: [['id', 'ASC']],
       where,
-      /*include: [
+      include: [
         {
-          model: Registration,
-          as: 'registration',
-          attributes: ['id', 'plan_id'],
-          where: { canceled_at: null },
+          model: Recipient,
+          as: 'recipient',
+          // attributes: ['id', 'plan_id'],
+          // where: { canceled_at: null },
           required: false,
         },
-      ],*/
+      ],
     };
 
     const { docs, pages, total } = await Delivery.paginate(options);
+    console.log(docs);
 
     return res.json({ docs, pages, total });
   }
@@ -48,16 +49,16 @@ class CarriageController {
     }
 
     const returnUpdate = await Delivery.update(
-      {...req.body, avatar_id: 'zaq1'},
+      { ...req.body, avatar_id: 'zaq1' },
       { where: { id: req.params.id }, returning: true },
     );
 
     const [, [{
-      id, name, email, avatar_id
+      id, name, email, avatar_id,
     }]] = returnUpdate;
 
     return res.json({
-      id, name, email, avatar_id
+      id, name, email, avatar_id,
     });
   }
 }

@@ -15,8 +15,8 @@ import CarriageFinishController from './app/controllers/CarriageFinishController
 
 import ProblemController from './app/controllers/DeliveryProblemController';
 
-/* import IdentifierController from './app/controllers/IdentifierController';
-import PlanController from './app/controllers/PlanController';
+import IdentifierController from './app/controllers/IdentifierController';
+/* import PlanController from './app/controllers/PlanController';
 import RegistrationController from './app/controllers/RegistrationController';
 import CheckinController from './app/controllers/CheckinController';
 import HelpQuestionController from './app/controllers/HelpQuestionController';
@@ -37,14 +37,14 @@ const routes = new Router();
  */
 
 // Identify student
-// routes.get('/identifiers/:id', IdentifierController.show);
+routes.get('/identifiers/:id', IdentifierController.show);
 
 // deliveryman/1/deliveries
 routes.get('/deliverymen/:deliveryman_id/deliveries', CarriageController.index);
 
 // status
 routes.put('/deliverymen/:delivery_id/delivery-init', CarriageInitController.update);
-routes.put('/deliverymen/:delivery_id/delivery-finish', CarriageFinishController.update);
+routes.put('/deliverymen/:delivery_id/delivery-finish', upload.single('file'), CarriageFinishController.update);
 
 // problems
 routes.post('/delivery/:delivery_id/problems', ProblemController.store);

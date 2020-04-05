@@ -14,14 +14,14 @@ class DeliveryProblemController {
     }
 
     const {
-      id, delivery_id, description
+      id, delivery_id, description,
     } = await Problem.create({
       delivery_id: req.params.delivery_id,
       description: req.body.description,
     });
 
     return res.json({
-      id, delivery_id, description
+      id, delivery_id, description,
     });
   }
 
@@ -50,7 +50,7 @@ class DeliveryProblemController {
 
   async show(req, res) {
     const { delivery_id } = req.params;
-    
+
     const options = {
       where: { id: delivery_id },
       include: [
@@ -65,7 +65,7 @@ class DeliveryProblemController {
 
     const delivery = await Delivery.findOne(options);
 
-    return res.json({ delivery });
+    return res.json(delivery);
   }
 
   async update(req, res) {
@@ -90,11 +90,11 @@ class DeliveryProblemController {
     );
 
     const [, [{
-      id, name, email, avatar_id
+      id, name, email, avatar_id,
     }]] = returnUpdate;
 
     return res.json({
-      id, name, email, avatar_id
+      id, name, email, avatar_id,
     });
   }
 

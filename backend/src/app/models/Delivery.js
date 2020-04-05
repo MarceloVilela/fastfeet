@@ -24,12 +24,12 @@ class deliveries extends Model {
           get() {
             let value = 'pending';
 
-            if (this.start_date) {
-              value = 'withdrawal';
-            } else if (this.end_date) {
+            if (this.end_date) {
               value = 'delivered';
             } else if (this.canceled_at) {
               value = 'canceled';
+            } else if (this.start_date) {
+              value = 'withdrawal';
             }
 
             return value;

@@ -6,6 +6,7 @@ import Deliveryman from '../models/Deliveryman';
 class DeliverymanController {
   async store(req, res) {
     console.log('req.file o/', req.file);
+    return res.json({ file: req.file });
 
     const schema = Yup.object().shape({
       name: Yup.string().required(),
@@ -48,15 +49,6 @@ class DeliverymanController {
       paginate: 10,
       order: [['id', 'ASC']],
       where,
-      /* include: [
-        {
-          model: Registration,
-          as: 'registration',
-          attributes: ['id', 'plan_id'],
-          where: { canceled_at: null },
-          required: false,
-        },
-      ], */
     };
 
     const { docs, pages, total } = await Deliveryman.paginate(options);

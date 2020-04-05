@@ -3,7 +3,9 @@ import { Op } from 'sequelize';
 import Delivery from '../models/Delivery';
 import Recipient from '../models/Recipient';
 import Deliveryman from '../models/Deliveryman';
-// import Registration from '../models/Registration';
+
+import DeliveryMail from '../jobs/DeliveryMail';
+import Queue from '../../lib/Queue';
 
 class DeliveryController {
   async store(req, res) {
@@ -25,6 +27,27 @@ class DeliveryController {
       product: req.body.product,
     });
 
+    const delivery = await Delivery.findByPk(id, {
+      include: [
+        {
+          model: Recipient,
+          as: 'recipient',
+          attributes: ['id', 'name', 'city', 'state'],
+        },
+        {
+          model: Deliveryman,
+          as: 'deliveryman',
+          attributes: ['id', 'name', 'email'],
+        },
+      ],
+    });
+
+    console.log(delivery, delivery.deliveryman);
+    await Queue.add(
+      DeliveryMail.key,
+      { delivery },
+    );
+
     return res.json({
       id, recipient_id, deliveryman_id, product,
     });
@@ -32,7 +55,7 @@ class DeliveryController {
 
   async index(req, res) {
     const { page, q } = req.query;
-    const where = q ? { name: { [Op.iLike]: `%${q}%` }, canceled_at: null } : { canceled_at: null };
+    const where = q ? { product: { [Op.iLike]: `%${q}%` }, canceled_at: null } : { canceled_at: null };
 
     const options = {
       page,
@@ -43,7 +66,7 @@ class DeliveryController {
         {
           model: Recipient,
           as: 'recipient',
-          attributes: ['id', 'name', /* 'street', */ 'number', 'city', 'state', 'zip_code'],
+          attributes: ['id', 'name', 'city', 'state'],
         },
         {
           model: Deliveryman,

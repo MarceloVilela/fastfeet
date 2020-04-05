@@ -1,6 +1,5 @@
 import * as Yup from 'yup';
-import Student from '../models/Student';
-import Registration from '../models/Registration';
+import Deliveryman from '../models/Deliveryman';
 
 class IdentifierController {
   async show(req, res) {
@@ -15,25 +14,17 @@ class IdentifierController {
     const { id } = req.params;
 
     const options = {
-      where: { id },
-      include: [
-        {
-          model: Registration,
-          as: 'registration',
-          required: false,
-          where: { canceled_at: null },
-        },
-      ],
+      where: { id, canceled_at: null },
     };
 
-    const student = await Student.findOne(options);
+    const deliveryman = await Deliveryman.findOne(options);
 
-    if (!student) {
-      return res.status(400).json({ error: 'Aluno não encontrado' });
+    if (!deliveryman) {
+      return res.status(400).json({ error: 'Entregador não encontrado' });
     }
 
-    if (student.registration && student.registration.active) {
-      return res.json({ id });
+    if (deliveryman) {
+      return res.json(deliveryman);
     }
 
     // Although the student is registered on the platform,

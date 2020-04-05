@@ -28,7 +28,7 @@ export default function RecipientShow() {
 
   useEffect(() => {
     loadItens();
-  }, [q, loadItens]);
+  }, [loadItens]);
 
   const handleDelete = async (id) => {
     // eslint-disable-next-line no-alert
@@ -50,7 +50,7 @@ export default function RecipientShow() {
       <FieldGroupList
         title="Gerenciando destinatários"
         location="/destinatario.cadastrar"
-        handleChange={setQ}
+        handleInput={setQ}
         inputPlaceholder="Buscar por destinatários"
       />
 

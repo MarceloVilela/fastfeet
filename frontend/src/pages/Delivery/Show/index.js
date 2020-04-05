@@ -10,6 +10,7 @@ import DeliveryPreview from './Preview';
 
 export default function Delivery() {
   const [itens, setItens] = useState([]);
+  const [q, setQ] = useState('');
   const [page, setPage] = useState(1);
   const [pageTotal, setPageTotal] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -18,11 +19,12 @@ export default function Delivery() {
   const [openModal, setOpenModal] = useState(false);
 
   const loadItens = useCallback(async () => {
+    console.log('loadItens');
     setLoading(true);
     try {
       const {
         data: { docs, pages },
-      } = await api.get(`deliveries?page=${page}`);
+      } = await api.get(`deliveries?q=${q}&page=${page}`);
 
       setPageTotal(pages);
 
@@ -37,18 +39,18 @@ export default function Delivery() {
       toast.error('Erro ao listar encomendas');
     }
     setLoading(false);
-  }, [page]);
+  }, [page, q]);
 
   useEffect(() => {
     loadItens();
-  }, [page, loadItens]);
+  }, [loadItens]);
 
   const handleDelete = async (id) => {
     // eslint-disable-next-line no-alert
     if (window.confirm('Tem certeza que deseja apagar encomenda?')) {
       setLoading(true);
       try {
-        await api.delete(`plans/${id}`);
+        await api.delete(`deliveries/${id}`);
         toast.success('Encomenda apagada com sucesso');
         loadItens();
       } catch (error) {
@@ -72,14 +74,17 @@ export default function Delivery() {
       <FieldGroupList
         title="Gerenciando encomendas"
         location="/encomenda.cadastrar"
-        handleChange={() => { }}
+        handleInput={setQ}
         inputPlaceholder="Buscar por encomendas"
       />
 
       <List>
         <li>
           <div>
-            <strong>ID</strong>
+            <strong>
+              ID
+              {q}
+            </strong>
           </div>
           <div>
             <strong>Destinatário</strong>

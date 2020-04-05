@@ -6,12 +6,13 @@ import { Link } from 'react-router-dom';
 
 import { FieldGroup, InputContainer } from './styles';
 
-export default function FieldGroupForm({
+export default function FieldGroupList({
   title,
   location,
   handleInput,
   inputPlaceholder,
 }) {
+  console.log(handleInput);
   return (
     <FieldGroup>
       <h1>{title}</h1>
@@ -29,7 +30,7 @@ export default function FieldGroupForm({
                 type="text"
                 name="search"
                 placeholder={inputPlaceholder}
-                onChange={(e) => handleInput(e.target.value)}
+                onChange={(e) => { console.log('aqui'); handleInput(e.target.value); }}
               />
             </InputContainer>
           </div>
@@ -48,14 +49,14 @@ export default function FieldGroupForm({
   );
 }
 
-FieldGroupForm.propTypes = {
+FieldGroupList.propTypes = {
   title: PropTypes.string.isRequired,
   location: PropTypes.string,
   handleInput: PropTypes.func,
   inputPlaceholder: PropTypes.string,
 };
 
-FieldGroupForm.defaultProps = {
+FieldGroupList.defaultProps = {
   location: '',
   handleInput: () => {},
   inputPlaceholder: '',

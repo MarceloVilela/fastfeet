@@ -7,7 +7,7 @@ import { Wrap, WrapLoading, Image } from './styles';
 export default function Container({ children, loading }) {
   return (
     <Wrap>
-      {!loading && <>{children}</>}
+      {children}
       {loading && (
         <WrapLoading>
           <Image

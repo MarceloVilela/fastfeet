@@ -8,6 +8,7 @@ import {
 
 export default function DeliverymanShow() {
   const [itens, setItens] = useState([]);
+  const [q, setQ] = useState('');
   const [page, setPage] = useState(1);
   const [pageTotal, setPageTotal] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -18,7 +19,7 @@ export default function DeliverymanShow() {
     try {
       const {
         data: { docs, pages },
-      } = await api.get(`deliverymen?page=${page}`);
+      } = await api.get(`deliverymen?q=${q}&page=${page}`);
 
       setPageTotal(pages);
       setItens(docs);
@@ -26,11 +27,11 @@ export default function DeliverymanShow() {
       toast.error('Erro ao listar entregador');
     }
     setLoading(false);
-  }, [page]);
+  }, [page, q]);
 
   useEffect(() => {
     loadItens();
-  }, [page, loadItens]);
+  }, [loadItens]);
 
   const handleDelete = async (id) => {
     // eslint-disable-next-line no-alert
@@ -52,7 +53,7 @@ export default function DeliverymanShow() {
       <FieldGroupList
         title="Gerenciando entregadores"
         location="/entregador.cadastrar"
-        handleChange={() => { }}
+        handleInput={setQ}
         inputPlaceholder="Buscar por entregadores"
       />
 

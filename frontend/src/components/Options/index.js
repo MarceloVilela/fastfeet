@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
   MdMoreHoriz, MdInfo, MdEdit, MdDelete,
@@ -6,30 +6,26 @@ import {
 import { Link } from 'react-router-dom';
 
 import { Item, Description, Wrapper } from './styles';
+import useComponentVisible from './useComponentVisible';
 
 export default function Options({
   handleInfo,
   linkEdit,
   handleDelete,
 }) {
-  const [visible, setVisible] = useState(false);
-
-  /* const handleBlur = () => {
-    console.log('blur')
-    setVisible(false)
-  } */
+  const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false);
 
   return (
     <div>
       <Item
-        onClick={() => setVisible(!visible)}
+        onClick={() => setIsComponentVisible(true)}
       // onFocus={console.log('focus1')}
       >
         <MdMoreHoriz />
       </Item>
-      {visible
+      {(isComponentVisible)
         && (
-          <Wrapper>
+          <Wrapper ref={ref}>
             <Item onClick={handleInfo} className="info">
               <MdInfo />
               <Description>Visualizar</Description>

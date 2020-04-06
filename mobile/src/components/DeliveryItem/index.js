@@ -16,7 +16,7 @@ export default function DeliveryItem({ data, navigation }) {
 
   return (
     <DeliveryItemWrap>
-      <Title iconName='local-shipping'>Encomenda {data.counter}</Title>
+      <Title iconName='local-shipping' label={`Encomenda ${data.counter}`}></Title>
 
 
 

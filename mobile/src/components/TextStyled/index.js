@@ -12,7 +12,7 @@ export default function TextStyled({ format, children, ...rest }) {
 }
 
 TextStyled.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.string,
   format: PropTypes.string,
 };
 

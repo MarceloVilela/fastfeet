@@ -27,13 +27,13 @@ export const ImageWrap = styled.TouchableOpacity.attrs(() => ({
 }))``;
 
 export const Image = styled.Image`
-  width: 50; 
-  height: 50; 
-  border-radius: 25;
+  width: 50px; 
+  height: 50px; 
+  border-radius: 25px;
 `;
 
 
 export const WelcomeWrap = styled(RectButton)`
   flex: 1;
-  margin-left: 10; 
+  margin-left: 10px; 
 `;

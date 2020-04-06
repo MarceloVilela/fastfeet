@@ -56,15 +56,17 @@ export default function ProblemIndex({ navigation, route }) {
 
   return (
     <Container loading={loading} scrollable spaced>
-      <Button onPress={() => { }}>
-        Encomenda {deliveryData.id}
-      </Button>
-      <List
-        data={data}
-        keyExtractor={item => String(item.id)}
-        renderItem={({ item }) => <ProblemItem data={item} />}
-        ListEmptyComponent={<EmptyItem data={listEmptyComponent} />}
-      />
+      <>
+        <Button onPress={() => { }}>
+          Encomenda {deliveryData.id}
+        </Button>
+        <List
+          data={data}
+          keyExtractor={item => String(item.id)}
+          renderItem={({ item }) => <ProblemItem data={item} />}
+          ListEmptyComponent={<EmptyItem data={listEmptyComponent} />}
+        />
+      </>
     </Container>
   );
 }

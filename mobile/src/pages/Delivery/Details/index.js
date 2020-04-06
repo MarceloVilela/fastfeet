@@ -29,7 +29,7 @@ export default function DeliveryDetails({ route, navigation }) {
 
   const createHeader = (title, iconName) => {
     return (
-      <Title iconName={iconName}>{title}</Title>
+      <Title iconName={iconName} label={title}></Title>
     )
   };
 

@@ -20,22 +20,24 @@ export default function SignIn() {
 
   return (
     <Container>
-      <Image source={logo} />
+      <>
+        <Image source={logo} />
 
-      <Form>
-        <FormInput
-          keyboardType="numeric"
-          autoCorrect={false}
-          placeholder="Informe seu ID de cadastro"
-          returnKeyType="next"
-          value={id}
-          onChangeText={setId}
-        />
+        <Form>
+          <FormInput
+            keyboardType="numeric"
+            autoCorrect={false}
+            placeholder="Informe seu ID de cadastro"
+            returnKeyType="next"
+            value={id}
+            onChangeText={setId}
+          />
 
-        <SubmitButton onPress={handleSubmit} loading={loading}>
-          Entrar no sistema
+          <SubmitButton onPress={handleSubmit} loading={loading}>
+            Entrar no sistema
         </SubmitButton>
-      </Form>
+        </Form>
+      </>
     </Container>
   );
 }

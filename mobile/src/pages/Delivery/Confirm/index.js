@@ -72,22 +72,23 @@ export default function DeliveryConfirm({ navigation, route }) {
 
   return (
     <Container scrollable spaced>
+      <>
+        <CameraWrap>
+          <Camera style={{ flex: 1 }} type={Camera.Constants.Type.back} ref={ref => { setCameraRef(ref) }}>
 
-      <CameraWrap>
-        <Camera style={{ flex: 1 }} type={Camera.Constants.Type.back} ref={ref => { setCameraRef(ref) }}>
+            <IconWrap>
+              <IconTouchableOpacity onPress={() => snap()}>
+                <IconStyled name={'camera-alt'} color="light" size="medium" />
+              </IconTouchableOpacity>
+            </IconWrap>
 
-          <IconWrap>
-            <IconTouchableOpacity onPress={() => snap()}>
-              <IconStyled name={'camera-alt'} color="light" size="medium" />
-            </IconTouchableOpacity>
-          </IconWrap>
+          </Camera>
+        </CameraWrap>
 
-        </Camera>
-      </CameraWrap>
-
-      <Button onPress={handleSubmit} loading={loadingSubmit}>
-        Enviar
+        <Button onPress={handleSubmit} loading={loadingSubmit}>
+          Enviar
       </Button>
+      </>
     </Container>
   );
 }

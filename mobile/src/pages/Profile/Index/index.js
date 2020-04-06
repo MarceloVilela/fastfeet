@@ -26,19 +26,21 @@ export default function ProfileIndex({ route, navigation }) {
 
   return (
     <Container scrollable spaced>
-      <ImageWrap>
-        <Image source={{ uri: `http://192.168.1.7:3333/files/${profile.avatar_id}` }} />
-      </ImageWrap>
+      <>
+        <ImageWrap>
+          <Image source={{ uri: `http://192.168.1.7:3333/files/${profile.avatar_id}` }} />
+        </ImageWrap>
 
-      <Box>
-        {createField('Nome', 'Marcelo Vilela')}
-        {createField('Email', 'marcelo.vilela.s@gmail.com')}
-        {createField('Data de cadastro', '01/01/2020')}
-      </Box>
+        <Box>
+          {createField('Nome', 'Marcelo Vilela')}
+          {createField('Email', 'marcelo.vilela.s@gmail.com')}
+          {createField('Data de cadastro', '01/01/2020')}
+        </Box>
 
-      <Button onPress={handleLogout} color="danger">
-        Logout
+        <Button onPress={handleLogout} color="danger">
+          Logout
       </Button>
+      </>
     </Container>
   );
 }

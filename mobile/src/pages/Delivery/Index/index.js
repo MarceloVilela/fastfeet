@@ -95,42 +95,44 @@ function DeliveryIndex({ navigation }) {
 
   return (
     <Container loading={loading}>
-      <Box style={{ marginVertical: 10 }}>
-        <Identification>
-          <ImageWrap>
-            <Image
-              source={{ uri: `http://192.168.1.7:3333/files/${profile.avatar_id}` }}
-            />
-          </ImageWrap>
+      <>
+        <Box style={{ marginVertical: 10 }}>
+          <Identification>
+            <ImageWrap>
+              <Image
+                source={{ uri: `http://192.168.1.7:3333/files/${profile.avatar_id}` }}
+              />
+            </ImageWrap>
 
-          <WelcomeWrap>
-            <Label>Bem vindo de volta,</Label>
-            <Value>{profile.name}</Value>
-          </WelcomeWrap>
+            <WelcomeWrap>
+              <Label>Bem vindo de volta,</Label>
+              <Value>{profile.name}</Value>
+            </WelcomeWrap>
 
-          <TouchableOpacity onPress={handleLogout}>
-            <MaterialIcons name={'exit-to-app'} size={24} color={'red'} />
-          </TouchableOpacity>
-        </Identification>
-      </Box>
+            <TouchableOpacity onPress={handleLogout}>
+              <MaterialIcons name={'exit-to-app'} size={24} color={'red'} />
+            </TouchableOpacity>
+          </Identification>
+        </Box>
 
-      <Box>
-        <List
-          data={data}
-          keyExtractor={item => String(item.id)}
-          renderItem={({ item }) => <DeliveryItem data={item} navigation={navigation} />}
-          ListEmptyComponent={<EmptyItem data={listEmptyComponent} />}
-          onEndReached={() => {
-            console.log('more');
-            load();
-          }}
-          onEndReachedThreshold={0.2}
-        /*onEndReachedThreshold={0.2}
-        onEndReached={loadMore}
-        onRefresh={refreshList}
-        refreshing={refreshing}*/
-        />
-      </Box>
+        <Box>
+          <List
+            data={data}
+            keyExtractor={item => String(item.id)}
+            renderItem={({ item }) => <DeliveryItem data={item} navigation={navigation} />}
+            ListEmptyComponent={<EmptyItem data={listEmptyComponent} />}
+            onEndReached={() => {
+              console.log('more');
+              load();
+            }}
+            onEndReachedThreshold={0.2}
+          /*onEndReachedThreshold={0.2}
+          onEndReached={loadMore}
+          onRefresh={refreshList}
+          refreshing={refreshing}*/
+          />
+        </Box>
+      </>
     </Container>
   );
 }

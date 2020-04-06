@@ -15,7 +15,7 @@ export default function Delivery() {
   const [pageTotal, setPageTotal] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  const [currentHelp, setCurrentHelp] = useState({});
+  const [currentItem, setCurrentItem] = useState({});
   const [openModal, setOpenModal] = useState(false);
 
   const loadItens = useCallback(async () => {
@@ -61,12 +61,8 @@ export default function Delivery() {
   };
 
   const handleDelivery = (item) => {
-    setCurrentHelp(item);
+    setCurrentItem(item);
     setOpenModal(true);
-  };
-
-  const handlePropagatesClose = () => {
-    setOpenModal(false);
   };
 
   return (
@@ -133,11 +129,8 @@ export default function Delivery() {
       </List>
       <Pagination current={page} total={pageTotal} setPage={setPage} />
 
-      <Modal open={openModal} reset={handlePropagatesClose}>
-        <DeliveryPreview
-          data={currentHelp}
-          reset={handlePropagatesClose}
-        />
+      <Modal open={openModal} reset={() => setOpenModal(false)}>
+        <DeliveryPreview data={currentItem} />
       </Modal>
     </Container>
   );

@@ -26,7 +26,7 @@ export default function Options({
       {(isComponentVisible)
         && (
           <Wrapper ref={ref}>
-            <Item onClick={handleInfo} className="info">
+            <Item onClick={() => { handleInfo(); setIsComponentVisible(false); }} className="info">
               <MdInfo />
               <Description>Visualizar</Description>
             </Item>

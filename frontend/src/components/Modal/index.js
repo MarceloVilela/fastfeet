@@ -20,13 +20,13 @@ export default function MyModal({ open, reset, children }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const handleModalIsOpen = useCallback(
-    isOpen => {
+    (isOpen) => {
       setModalIsOpen(isOpen);
       if (!isOpen) {
         reset();
       }
     },
-    [reset]
+    [reset],
   );
 
   useEffect(() => {

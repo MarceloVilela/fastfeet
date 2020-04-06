@@ -18,7 +18,7 @@ export default function ProblemShow() {
   const [pageTotal, setPageTotal] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  const [currentHelp, setCurrentHelp] = useState({});
+  const [currentItem, setCurrentItem] = useState({});
   const [openModal, setOpenModal] = useState(false);
 
   const loadItens = useCallback(async () => {
@@ -39,13 +39,9 @@ export default function ProblemShow() {
     loadItens();
   }, [page, loadItens]);
 
-  const handleAnswer = (help) => {
-    setCurrentHelp(help);
+  const handleAnswer = (item) => {
+    setCurrentItem(item);
     setOpenModal(true);
-  };
-
-  const handlePropagatesClose = () => {
-    setOpenModal(false);
   };
 
   return (
@@ -79,12 +75,8 @@ export default function ProblemShow() {
       </List>
       <Pagination current={page} total={pageTotal} setPage={setPage} />
 
-      <Modal open={openModal} reset={handlePropagatesClose}>
-        <ProblemPreview
-          data={currentHelp}
-          reset={handlePropagatesClose}
-          cbAnswer={loadItens}
-        />
+      <Modal open={openModal} reset={() => setOpenModal(false)}>
+        <ProblemPreview data={currentItem} cbAnswer={loadItens} />
       </Modal>
     </Container>
   );

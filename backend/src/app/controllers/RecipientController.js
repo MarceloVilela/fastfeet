@@ -42,7 +42,7 @@ class RecipientController {
 
   async index(req, res) {
     const { page, q } = req.query;
-    const where = q ? { name: { [Op.iLike]: `%${q}%` }, canceled_at: null } : { /* canceled_at: null */ };
+    const where = q ? { name: { [Op.iLike]: `%${q}%` }, canceled_at: null } : { canceled_at: null };
 
     const options = {
       page,
@@ -111,12 +111,12 @@ class RecipientController {
   }
 
   async delete(req, res) {
-    const Recipient = await Recipient.findByPk(req.params.id);
+    const recipient = await Recipient.findByPk(req.params.id);
 
-    Recipient.canceled_at = new Date();
-    await Recipient.save();
+    recipient.canceled_at = new Date();
+    await recipient.save();
 
-    return res.json(Recipient);
+    return res.json(recipient);
   }
 }
 

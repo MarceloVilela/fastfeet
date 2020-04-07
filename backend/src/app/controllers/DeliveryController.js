@@ -55,7 +55,7 @@ class DeliveryController {
 
   async index(req, res) {
     const { page, q } = req.query;
-    const where = q ? { product: { [Op.iLike]: `%${q}%` }, canceled_at: null } : { canceled_at: null };
+    const where = q ? { product: { [Op.iLike]: `%${q}%` } } : {};
 
     const options = {
       page,

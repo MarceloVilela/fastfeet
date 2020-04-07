@@ -79,7 +79,6 @@ export default function Delivery() {
           <div>
             <strong>
               ID
-              {q}
             </strong>
           </div>
           <div>
@@ -105,7 +104,7 @@ export default function Delivery() {
           <li key={item.id}>
             <div>
               #
-              {item.recipient.id}
+              {item.id}
             </div>
             <div>{item.recipient.name}</div>
             <div>{item.deliveryman.name}</div>

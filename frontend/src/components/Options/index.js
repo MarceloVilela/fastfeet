@@ -12,6 +12,7 @@ export default function Options({
   handleInfo,
   linkEdit,
   handleDelete,
+  deleteLabel,
 }) {
   const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false);
 
@@ -31,17 +32,23 @@ export default function Options({
               <Description>Visualizar</Description>
             </Item>
 
-            <Item className="edit">
-              <Link to={linkEdit}>
-                <MdEdit />
-                <Description>Editar</Description>
-              </Link>
-            </Item>
+            {linkEdit
+              && (
+                <Item className="edit">
+                  <Link to={linkEdit}>
+                    <MdEdit />
+                    <Description>Editar</Description>
+                  </Link>
+                </Item>
+              )}
 
-            <Item onClick={handleDelete} className="delete">
-              <MdDelete />
-              <Description>Apagar</Description>
-            </Item>
+            {handleDelete
+              && (
+              <Item onClick={handleDelete} className="delete">
+                <MdDelete />
+                <Description>{deleteLabel}</Description>
+              </Item>
+              )}
           </Wrapper>
         )}
     </div>
@@ -52,10 +59,12 @@ Options.propTypes = {
   handleInfo: PropTypes.func,
   linkEdit: PropTypes.string,
   handleDelete: PropTypes.func,
+  deleteLabel: PropTypes.string,
 };
 
 Options.defaultProps = {
   handleInfo: () => { },
   linkEdit: '',
   handleDelete: () => { },
+  deleteLabel: 'Excluir',
 };

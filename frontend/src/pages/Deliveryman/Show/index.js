@@ -38,7 +38,7 @@ export default function DeliverymanShow() {
     if (window.confirm('Tem certeza que deseja apagar entregador?')) {
       setLoading(true);
       try {
-        await api.delete(`registrations/${id}`);
+        await api.delete(`deliverymen/${id}`);
         toast.success('Entregador apagado com sucesso');
         loadItens();
       } catch (error) {

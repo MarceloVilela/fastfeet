@@ -39,10 +39,24 @@ export default function ProblemShow() {
     loadItens();
   }, [page, loadItens]);
 
-  const handleAnswer = (item) => {
+  const handleProblem = (item) => {
     setCurrentItem(item);
     setOpenModal(true);
   };
+
+  async function handleDelete(item) {
+    if (window.confirm('Tem certeza que deseja cancelar encomenda?')) {
+      setLoading(true);
+      try {
+        await api.delete(`/problem/${item.id}/cancel-delivery`);
+        toast.success('Encomenda cancelada com sucesso');
+        loadItens();
+      } catch (error) {
+        toast.error('Erro ao cancelar encomenda');
+      }
+      setLoading(false);
+    }
+  }
 
   return (
     <Container loading={loading}>
@@ -68,7 +82,11 @@ export default function ProblemShow() {
             </div>
             <div>{item.description}</div>
             <div>
-              <Options handleInfo={() => { handleAnswer(item); }} handleDelete={() => { }} />
+              <Options
+                handleInfo={() => { handleProblem(item); }}
+                handleDelete={item.delivery.canceled_at ? null : () => { handleDelete(item); }}
+                deleteLabel="Cancelar encomenda"
+              />
             </div>
           </li>
         ))}

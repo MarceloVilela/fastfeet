@@ -1,8 +1,10 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
+
 import Route from './Route';
 
 import SignIn from '../pages/SignIn';
+import SignOut from '../pages/SignOut';
 
 import RecipientNew from '../pages/Recipient/Create';
 import Recipient from '../pages/Recipient/Show';
@@ -21,7 +23,9 @@ import Problem from '../pages/Problem/Show';
 export default function Routes() {
   return (
     <Switch>
-      <Route path="/" exact component={SignIn} />
+      <Route path="/entrar" component={SignIn} />
+      <Route path="/sair" component={SignOut} isPrivate />
+      <Route path="/" component={Delivery} isPrivate />
 
       <Route path="/destinatario.cadastrar" component={RecipientNew} isPrivate />
       <Route path="/destinatario" component={Recipient} isPrivate exact />

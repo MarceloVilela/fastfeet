@@ -54,7 +54,7 @@ routes.get('/delivery/:delivery_id/problems', ProblemController.show);
 // routes.get('/students/:student_id/help-orders', HelpQuestionController.index);
 
 /*
- * Authenticate user
+ * Authenticate user (admin)
  */
 routes.post('/sessions', SessionController.store);
 
@@ -87,19 +87,4 @@ routes.delete('/deliveries/:id', DeliveryController.delete);
 routes.get('/problem', ProblemController.index);
 routes.delete('/problem/:problem_id/cancel-delivery', ProblemController.delete);
 
-/* routes.post('/plans', PlanController.store);
-routes.get('/plans/:id', PlanController.show);
-routes.get('/plans', PlanController.index);
-routes.put('/plans/:id', PlanController.update);
-routes.delete('/plans/:id', PlanController.delete);
-
-routes.post('/registrations', RegistrationController.store);
-routes.get('/registrations/:id', RegistrationController.show);
-routes.get('/registrations', RegistrationController.index);
-routes.put('/registrations/:id', RegistrationController.update);
-routes.delete('/registrations/:id', RegistrationController.delete);
-
-routes.get('/help-orders', HelpAnswerController.index);
-routes.post('/help-orders/:id/answer', HelpAnswerController.store);
-*/
 module.exports = routes;

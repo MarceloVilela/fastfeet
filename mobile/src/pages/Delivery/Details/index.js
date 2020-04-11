@@ -30,15 +30,17 @@ export default function DeliveryDetails({ route, navigation }) {
   const navigateShow = () => navigation.navigate('Problems', { deliveryData });
   const navigateConfirm = () => navigation.navigate('DeliveryConfirm', { deliveryData });
   const registerWithdrawal = async () => {
-    try {
-      setLoading(true);
+    setLoading(true);
+    
+    try {      
       const uri = `/deliverymen/${deliveryData.id}/delivery-init`;
       const response = await api.put(uri);
-      setLoading(false);
       navigation.navigate('DeliveryIndex', { deliveryData });
     } catch (error) {
-      alert(error);
+      alert(error.response.data.error);
     }
+
+    setLoading(false);
   };
 
   const createHeader = (title, iconName) => {

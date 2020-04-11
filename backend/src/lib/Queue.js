@@ -1,8 +1,9 @@
 import Bee from 'bee-queue';
 import redisConfig from '../config/redis';
 import DeliveryMail from '../app/jobs/DeliveryMail';
+import CancelMail from '../app/jobs/CancelMail';
 
-const jobs = [DeliveryMail];
+const jobs = [CancelMail];
 
 class Queue {
   constructor() {
@@ -23,10 +24,7 @@ class Queue {
   }
 
   add(queue, job) {
-    console.log('quee-add');
-    console.log(job);
     this.queues[queue].bee.createJob(job).save();
-    console.log('OKOK');
   }
 
   processQueue() {

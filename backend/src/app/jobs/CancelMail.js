@@ -2,9 +2,9 @@ import { format, parseISO } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import Mail from '../../lib/Mail';
 
-class DeliveryMail {
+class CancelMail {
   get key() {
-    return 'DeliveryMail';
+    return 'CancelMail';
   }
 
   async handle({ data }) {
@@ -13,12 +13,12 @@ class DeliveryMail {
     const {
       street, number, city, state, zip_code,
     } = delivery.recipient;
-
     await Mail.sendMail({
       to: `${delivery.deliveryman.name} <${delivery.deliveryman.email}>`,
-      subject: 'Detalhes da encomenda na FastFeet',
-      template: 'delivery',
+      subject: 'Cancelamento da encomenda na FastFeet',
+      template: 'cancel',
       context: {
+        id: delivery.id,
         deliveryman: delivery.deliveryman.name,
         recipient: delivery.recipient.name,
         address: `${street}, ${number}, ${city} - ${state}, ${zip_code}`,
@@ -31,4 +31,4 @@ class DeliveryMail {
   }
 }
 
-export default new DeliveryMail();
+export default new CancelMail();

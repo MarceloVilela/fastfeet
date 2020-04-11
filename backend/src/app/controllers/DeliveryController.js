@@ -42,7 +42,6 @@ class DeliveryController {
       ],
     });
 
-    console.log(delivery, delivery.deliveryman);
     await Queue.add(
       DeliveryMail.key,
       { delivery },

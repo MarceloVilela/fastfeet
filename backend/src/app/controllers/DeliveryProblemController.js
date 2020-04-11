@@ -1,7 +1,11 @@
 import * as Yup from 'yup';
-import { Op } from 'sequelize';
 import Problem from '../models/DeliveryProblem';
 import Delivery from '../models/Delivery';
+import Recipient from '../models/Recipient';
+import Deliveryman from '../models/Deliveryman';
+
+import CancelMail from '../jobs/CancelMail';
+import Queue from '../../lib/Queue';
 
 class DeliveryProblemController {
   async store(req, res) {
@@ -104,10 +108,31 @@ class DeliveryProblemController {
       return res.status(400).json({ error: 'Problem not found.' });
     }
 
-    const delivery = await Delivery.findByPk(problem.delivery_id);
+    const delivery = await Delivery.findByPk(problem.delivery_id, {
+      include: [
+        {
+          model: Recipient,
+          as: 'recipient',
+          attributes: ['id', 'name', 'street', 'number', 'city', 'state', 'zip_code'],
+        },
+        {
+          model: Deliveryman,
+          as: 'deliveryman',
+          attributes: ['id', 'name', 'email'],
+        },
+      ],
+    });
 
     delivery.canceled_at = new Date();
     await delivery.save();
+
+    //
+    // When an order is canceled,
+    // the deliveryman must receive an email informing him of the cancellation
+    await Queue.add(
+      CancelMail.key,
+      { delivery },
+    );
 
     return res.json(delivery);
   }

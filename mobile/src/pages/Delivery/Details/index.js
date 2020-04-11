@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import React, {useState} from 'react';
+import api from '~/services/api';
 import PropTypes from 'prop-types';
 
 import Container from '~/components/Container';
@@ -20,12 +20,26 @@ import {
 export default function DeliveryDetails({ route, navigation }) {
   const { deliveryData } = route.params;
   const { recipient } = route.params.deliveryData;
+  
+  const [loading, setLoading] = useState(false);
+
   const { street, number, city, state, zip_code } = recipient;
   const address = `${street}, ${number}, ${city} - ${state}, ${zip_code}`;
 
   const navigateNew = () => navigation.navigate('ProblemNew', { deliveryData });
   const navigateShow = () => navigation.navigate('Problems', { deliveryData });
   const navigateConfirm = () => navigation.navigate('DeliveryConfirm', { deliveryData });
+  const registerWithdrawal = async () => {
+    try {
+      setLoading(true);
+      const uri = `/deliverymen/${deliveryData.id}/delivery-init`;
+      const response = await api.put(uri);
+      setLoading(false);
+      navigation.navigate('DeliveryIndex', { deliveryData });
+    } catch (error) {
+      alert(error);
+    }
+  };
 
   const createHeader = (title, iconName) => {
     return (
@@ -52,7 +66,7 @@ export default function DeliveryDetails({ route, navigation }) {
   };
 
   return (
-    <Container scrollable spaced>
+    <Container loading={loading} scrollable spaced>
       <Wrapper>
         <Box>
           {createHeader('Informações da entrega', 'local-shipping')}
@@ -77,7 +91,12 @@ export default function DeliveryDetails({ route, navigation }) {
           <ActionWrap>
             {createAction('Informar problema', navigateNew, 'cancel', 'danger', false)}
             {createAction('Visualizar problema', navigateShow, 'info', 'warning')}
-            {createAction('Confirmar entrega', navigateConfirm, 'check-circle', 'primary')}
+            {deliveryData.statusDesc === 'Pendente' &&
+              createAction('Registrar retirada', registerWithdrawal, 'update', 'primary')
+            }
+            {deliveryData.statusDesc === 'Retirada' &&
+              createAction('Confirmar entrega', navigateConfirm, 'check-circle', 'primary')
+            }
           </ActionWrap>
         </Box>
 

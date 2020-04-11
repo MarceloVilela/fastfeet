@@ -3,7 +3,7 @@ import redisConfig from '../config/redis';
 import DeliveryMail from '../app/jobs/DeliveryMail';
 import CancelMail from '../app/jobs/CancelMail';
 
-const jobs = [CancelMail];
+const jobs = [DeliveryMail, CancelMail];
 
 class Queue {
   constructor() {

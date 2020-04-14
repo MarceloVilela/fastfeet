@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
 import TextStyled from "~/components/TextStyled";
+import { color, size } from '~/styles/values';
 
 export const List = styled.FlatList.attrs({
   showsVerticalScrollIndicator: false,
@@ -32,8 +33,30 @@ export const Image = styled.Image`
   border-radius: 25px;
 `;
 
-
 export const WelcomeWrap = styled(RectButton)`
   flex: 1;
   margin-left: 10px; 
 `;
+
+//wrap title options
+export const FilterWrap = styled.View`
+  flex-direction: row; 
+  align-items: baseline; 
+  justify-content: space-between;
+  padding: 0 15px;
+`;
+
+export const FilterTitle = styled(TextStyled).attrs(() => ({ format: 'title' }))`
+  flex: 1;
+`;
+
+export const FilterOptions = styled.View`
+  flex-direction: row;
+`
+export const FilterLabel = styled.Text`
+  margin-left: 10px;
+  color: ${props => props.selected ? `${color['primary']}` : `${color['muted']}`};
+  border: ${props => props.selected ? `1px solid ${color['primary']}` : `${color['white']}`};
+  border-width: 0;
+  border-bottom-width: 3;
+`

@@ -7,9 +7,18 @@ import Recipient from '../models/Recipient';
 class CarriageController {
   async index(req, res) {
     const { page } = req.query;
+    const { filter = 'not_delivered' } = req.query;
     const { deliveryman_id } = req.params;
-    const where = { deliveryman_id, canceled_at: null };
-    console.log('entregador', deliveryman_id);
+
+    let where = { deliveryman_id };
+    if (filter === 'not_delivered') {
+      // return deliveries assigned to the deliveryman, which are not delivered or canceled
+      where = { ...where, end_date: null, canceled_at: null };
+    } else {
+      // return deliveries assigned to the deliveryman, which have already been delivered
+      where = { ...where, end_date: { [Op.not]: null } };
+    }
+
     const options = {
       page,
       paginate: 10,
@@ -27,7 +36,6 @@ class CarriageController {
     };
 
     const { docs, pages, total } = await Delivery.paginate(options);
-    console.log(docs);
 
     return res.json({ docs, pages, total });
   }

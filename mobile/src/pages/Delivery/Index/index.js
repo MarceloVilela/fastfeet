@@ -13,7 +13,7 @@ import Button from "~/components/Button";
 import Container from "~/components/Container";
 
 import { color } from "~/styles/values";
-import { Identification, ImageWrap, Image, WelcomeWrap, Label, Value, Box, List } from "./styles";
+import { Identification, ImageWrap, Image, WelcomeWrap, Label, Value, Box, List, FilterWrap, FilterTitle, FilterOptions, FilterLabel } from "./styles";
 
 function DeliveryIndex({ navigation }) {
   const dispatch = useDispatch();
@@ -23,10 +23,11 @@ function DeliveryIndex({ navigation }) {
   const { profile } = useSelector(state => state.auth);
   const listEmptyComponent = { description: 'Sem registros de entregas' };
 
-  // list checkins
+  // list deliveries
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
-  const [total, setTotal] = useState([]);
+  const [filter, setFilter] = useState('not_delivered');
+  const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
 
   async function load() {
@@ -46,7 +47,7 @@ function DeliveryIndex({ navigation }) {
 
     try {
       ///deliverymen/:deliveryman_id/deliveries
-      const url = `/deliverymen/${id}/deliveries?page=${page}`;
+      const url = `/deliverymen/${id}/deliveries?page=${page}&filter=${filter}`;
       //alert('request');
       const response = await api.get(url);
       const { docs, pages, total: totalCount } = response.data;
@@ -93,6 +94,19 @@ function DeliveryIndex({ navigation }) {
     load();
   }, []);
 
+  function handleFilter(value){
+    if(value != filter){
+      setData([]);
+      setPage(1);
+      setTotal(0)
+      setFilter(value);
+    }  
+  }
+
+  useEffect(() => {
+    load();
+  }, [filter]);
+
   return (
     <Container loading={loading}>
       <>
@@ -114,6 +128,18 @@ function DeliveryIndex({ navigation }) {
             </TouchableOpacity>
           </Identification>
         </Box>
+
+        <FilterWrap>
+          <FilterTitle>Entregas</FilterTitle>
+          <FilterOptions>
+            <TouchableOpacity onPress={() => { handleFilter('not_delivered') }}>
+              <FilterLabel selected={filter==='not_delivered'}>Pendentes</FilterLabel>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => { handleFilter('delivered') }}>
+            <FilterLabel selected={filter==='delivered'}>Entregues</FilterLabel>
+            </TouchableOpacity>
+          </FilterOptions>
+        </FilterWrap>
 
         <Box>
           <List

@@ -25,7 +25,7 @@ export default function Routes() {
     <Switch>
       <Route path="/entrar" component={SignIn} />
       <Route path="/sair" component={SignOut} isPrivate />
-      <Route path="/" component={Delivery} isPrivate />
+      <Route path="/" component={Delivery} isPrivate exact />
 
       <Route path="/destinatario.cadastrar" component={RecipientNew} isPrivate />
       <Route path="/destinatario" component={Recipient} isPrivate exact />

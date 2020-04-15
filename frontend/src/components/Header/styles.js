@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { color } from '~/styles/values';
 
 export const Container = styled.div`
   background: #fff;
@@ -79,7 +80,7 @@ export const Content = styled.div`
 
       svg {
         display: block;
-        color: red;
+        color: ${color.primary};
         font-size: 20px;
         margin-top: 10px;
       }

@@ -2,10 +2,10 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import {
-  MdPersonOutline,
-  MdEvent,
-  MdCardMembership,
-  MdHelpOutline,
+  MdLocalShipping,
+  MdPermIdentity,
+  MdPersonPin,
+  MdFeedback,
   MdExitToApp,
 } from 'react-icons/md';
 
@@ -36,7 +36,7 @@ export default function Header() {
             <section>
               <NavLink to="/encomenda" activeClassName="chosen" exact={false}>
                 <span>ENCOMENDAS</span>
-                <MdEvent />
+                <MdLocalShipping />
               </NavLink>
               <NavLink
                 to="/entregador"
@@ -44,7 +44,7 @@ export default function Header() {
                 exact={false}
               >
                 <span>ENTREGADORES</span>
-                <MdCardMembership />
+                <MdPermIdentity />
               </NavLink>
               <NavLink
                 to="/destinatario"
@@ -53,11 +53,11 @@ export default function Header() {
                 strict={false}
               >
                 <span>DESTINATÁRIOS</span>
-                <MdPersonOutline />
+                <MdPersonPin />
               </NavLink>
               <NavLink to="/problema" activeClassName="chosen" exact={false}>
                 <span>PROBLEMAS</span>
-                <MdHelpOutline />
+                <MdFeedback />
               </NavLink>
             </section>
           </article>

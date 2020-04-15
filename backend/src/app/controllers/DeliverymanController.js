@@ -5,17 +5,12 @@ import Deliveryman from '../models/Deliveryman';
 
 class DeliverymanController {
   async store(req, res) {
-    console.log('req.file o/', req.file);
-    return res.json({ file: req.file });
-
     const schema = Yup.object().shape({
       name: Yup.string().required(),
       email: Yup.string().email().required(),
     });
 
     const { filename: image } = req.file;
-
-    console.log('pimba', image);
 
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation fails' });
@@ -76,8 +71,6 @@ class DeliverymanController {
   }
 
   async update(req, res) {
-    console.log('req.file o/', req.file);
-
     const schema = Yup.object().shape({
       name: Yup.string().required(),
       email: Yup.string().email().required(),
@@ -98,8 +91,6 @@ class DeliverymanController {
       const { filename: image } = req.file;
       avatar = image;
     }
-
-    console.log('pimba', avatar);
 
     const returnUpdate = await Deliveryman.update(
       { ...req.body, avatar_id: avatar },

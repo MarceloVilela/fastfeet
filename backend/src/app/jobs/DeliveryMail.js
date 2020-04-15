@@ -13,7 +13,7 @@ class DeliveryMail {
     const {
       street, number, city, state, zip_code,
     } = delivery.recipient;
-    console.log(JSON.stringify(delivery));
+
     await Mail.sendMail({
       to: `${delivery.deliveryman.name} <${delivery.deliveryman.email}>`,
       subject: 'Detalhes da encomenda na FastFeet',

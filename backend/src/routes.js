@@ -16,17 +16,10 @@ import CarriageFinishController from './app/controllers/CarriageFinishController
 import ProblemController from './app/controllers/DeliveryProblemController';
 
 import IdentifierController from './app/controllers/IdentifierController';
-/* import PlanController from './app/controllers/PlanController';
-import RegistrationController from './app/controllers/RegistrationController';
-import CheckinController from './app/controllers/CheckinController';
-import HelpQuestionController from './app/controllers/HelpQuestionController';
-import HelpAnswerController from './app/controllers/HelpAnswerController';
-*/
+
 import authMiddleware from './app/middlewares/auth';
 
 import uploadConfig from './config/upload';
-
-console.log('config', uploadConfig);
 
 const upload = multer(uploadConfig);
 
@@ -50,9 +43,6 @@ routes.put('/deliverymen/:delivery_id/delivery-finish', upload.single('file'), C
 routes.post('/delivery/:delivery_id/problems', ProblemController.store);
 routes.get('/delivery/:delivery_id/problems', ProblemController.show);
 
-// routes.post('/students/:student_id/help-orders', HelpQuestionController.store);
-// routes.get('/students/:student_id/help-orders', HelpQuestionController.index);
-
 /*
  * Authenticate user (admin)
  */
@@ -64,7 +54,7 @@ routes.post('/users', UserController.store);
 routes.put('/users', UserController.update);
 
 /*
- * User features
+ * Admin features
  */
 routes.post('/recipients', RecipientController.store);
 routes.get('/recipients/:id', RecipientController.show);

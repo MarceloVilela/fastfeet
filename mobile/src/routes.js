@@ -8,6 +8,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 import { navigationRef } from './RootNavigation';
 import * as RootNavigation from './RootNavigation';
+
 import SignIn from "./pages/SignIn";
 import Deliveries from "./pages/Delivery/Index";
 import DeliveryDetails from "./pages/Delivery/Details";
@@ -28,7 +29,7 @@ const tabOptions = {
 const DeliveryOptions = {
   'DeliveryIndex': { title: 'Entregas' },
   'Details': { title: 'Detalhes da encomenda' },
-  'DeliveryConfirm': { title: 'Confirmar ---' },
+  'DeliveryConfirm': { title: 'Confirmar entrega' },
   'ProblemNew': { title: 'Informar problema' },
   'Problems': { title: 'Visualizar problemas' },
 }

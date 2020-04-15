@@ -7,8 +7,6 @@ import Container from '~/components/Container';
 import api from '~/services/api';
 import { CameraWrap, IconWrap, IconTouchableOpacity, IconStyled } from './styles';
 
-const debug = (obj) => alert(JSON.stringify(obj, null, 2));
-
 export default function DeliveryConfirm({ navigation, route }) {
   const { deliveryData } = route.params;
   const [file, setFile] = useState(null);
@@ -39,7 +37,6 @@ export default function DeliveryConfirm({ navigation, route }) {
     try {
       const uri = `/deliverymen/${deliveryData.id}/delivery-finish`;
       const response = await api.put(uri, formData);
-      alert(response);
     } catch (error) {
       alert(error);
     }
@@ -49,9 +46,7 @@ export default function DeliveryConfirm({ navigation, route }) {
   async function snap() {
     if (cameraRef) {
       let photo = await cameraRef.takePictureAsync();
-      debug(photo);
       setFile(photo);
-      //await handleSubmit();
     }
   };
 
@@ -59,7 +54,6 @@ export default function DeliveryConfirm({ navigation, route }) {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
       setHasPermission(status === 'granted');
-      //debug(deliveryData.id);
     })();
   }, []);
 

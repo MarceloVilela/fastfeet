@@ -33,22 +33,19 @@ function DeliveryIndex({ navigation }) {
   async function load() {
     // awaits previous loading
     if (loading) {
-      console.log('awaits-loading');
       return;
     }
 
     // already listed everything
     if (total > 0 && data.length === total) {
-      console.log('everything');
       return;
     }
 
     setLoading(true);
 
     try {
-      ///deliverymen/:deliveryman_id/deliveries
       const url = `/deliverymen/${id}/deliveries?page=${page}&filter=${filter}`;
-      //alert('request');
+      
       const response = await api.get(url);
       const { docs, pages, total: totalCount } = response.data;
 
@@ -148,14 +145,9 @@ function DeliveryIndex({ navigation }) {
             renderItem={({ item }) => <DeliveryItem data={item} navigation={navigation} />}
             ListEmptyComponent={<EmptyItem data={listEmptyComponent} />}
             onEndReached={() => {
-              console.log('more');
               load();
             }}
             onEndReachedThreshold={0.2}
-          /*onEndReachedThreshold={0.2}
-          onEndReached={loadMore}
-          onRefresh={refreshList}
-          refreshing={refreshing}*/
           />
         </Box>
       </>

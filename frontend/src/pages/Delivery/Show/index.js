@@ -19,7 +19,6 @@ export default function Delivery() {
   const [openModal, setOpenModal] = useState(false);
 
   const loadItens = useCallback(async () => {
-    console.log('loadItens');
     setLoading(true);
     try {
       const {

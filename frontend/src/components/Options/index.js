@@ -20,7 +20,6 @@ export default function Options({
     <div>
       <Item
         onClick={() => setIsComponentVisible(true)}
-      // onFocus={console.log('focus1')}
       >
         <MdMoreHoriz />
       </Item>

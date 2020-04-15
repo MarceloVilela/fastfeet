@@ -12,7 +12,6 @@ export default function FieldGroupList({
   handleInput,
   inputPlaceholder,
 }) {
-  console.log(handleInput);
   return (
     <FieldGroup>
       <h1>{title}</h1>
@@ -30,7 +29,7 @@ export default function FieldGroupList({
                 type="text"
                 name="search"
                 placeholder={inputPlaceholder}
-                onChange={(e) => { console.log('aqui'); handleInput(e.target.value); }}
+                onChange={(e) => { handleInput(e.target.value); }}
               />
             </InputContainer>
           </div>

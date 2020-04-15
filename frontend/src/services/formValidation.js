@@ -8,7 +8,6 @@ const validateBeforeSubmit = async function (data, helpers, schema, handleSubmit
     });
 
     // Validation passed
-    console.log('ok', data);
     formRef.current.setErrors({});
     handleSubmit(data);
   } catch (err) {
@@ -17,9 +16,6 @@ const validateBeforeSubmit = async function (data, helpers, schema, handleSubmit
 
     if (err instanceof Yup.ValidationError) {
       // Validation failed
-      console.log('err', err);
-      console.log('data', data);
-      // console.log('helpers', helpers);
 
       err.inner.forEach((error) => {
         validationErrors[error.path] = error.message;

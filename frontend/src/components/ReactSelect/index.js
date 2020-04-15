@@ -38,9 +38,6 @@ export default function ReactSelect({
   }, [ref.current, fieldName]); // eslint-disable-line
 
   function getDefaultValue() {
-    // console.log('getDefaultValue');
-    // console.log(defaultId);
-    // console.log(options);
     if (!defaultId) return null;
 
     if (!multiple) {

@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import { MdImage } from 'react-icons/md';
 import PropTypes from 'prop-types';
 
+import api from '~/services/api';
 import {
   FieldGroupForm as Fieldset, FormLayout, ImageInput, Input,
 } from '../../../components';
@@ -51,8 +52,7 @@ export default function RegistrationForm({
             {initialData.avatar_id
               && (
                 <img
-                  src={`http://localhost:3333/files/${initialData.avatar_id}`}
-                  data-src={`https://whattt.glitch.me/files/${initialData.avatar_id}`}
+                  src={`${api.defaults.baseURL}/files/${initialData.avatar_id}`}
                   alt="Preview-Uploaded"
                 />
               )}

@@ -3,7 +3,6 @@ import { toast } from 'react-toastify';
 import history from './history';
 
 const api = axios.create({
-  // baseURL: 'https://whattt.glitch.me',
   baseURL: 'http://localhost:3333',
 });
 

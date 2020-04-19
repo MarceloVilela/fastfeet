@@ -10,3 +10,5 @@ yarn.lock
 # TMP
 
 /tmp
+/uploads
+/uploads/*

@@ -37,6 +37,7 @@ export default function DeliveryConfirm({ navigation, route }) {
     try {
       const uri = `/deliverymen/${deliveryData.id}/delivery-finish`;
       const response = await api.put(uri, formData);
+      navigation.navigate('DeliveryIndex', { deliveryData });
     } catch (error) {
       alert(error);
     }

@@ -44,12 +44,16 @@ export default function RecipientUpdate({ match }) {
 
   return (
     <Container loading={loading}>
+      {!loading
+      && (
       <FormRecipient
         title="Edição de destinatário"
         initialData={item}
         handleSubmit={handleSubmit}
         loadingSubmit={loadingSubmit}
       />
+      )}
+
     </Container>
   );
 }

@@ -110,7 +110,6 @@ export default function RecipientForm({
                 required
                 mask="99999-999"
                 defaultValue={initialData.zip_code}
-                initial={initialData.zip_code ? 'true' : 'false'}
               />
             </label>
           </section>

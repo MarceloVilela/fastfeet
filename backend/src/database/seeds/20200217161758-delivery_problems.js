@@ -1,0 +1,87 @@
+module.exports = {
+  up: (QueryInterface) => QueryInterface.bulkInsert(
+    'delivery_problems',
+    [
+      {
+        id: 1,
+        delivery_id: 3,
+        description: 'Destinatário ausente',
+        created_at: '2020-04-06T10:24:27.771Z',
+        updated_at: '2020-04-06T10:24:27.771Z',
+      },
+      {
+        id: 2,
+        delivery_id: 3,
+        description: 'Problema com veículo',
+        created_at: '2020-04-07T11:47:03.513Z',
+        updated_at: '2020-04-07T11:47:03.513Z',
+      },
+      {
+        id: 3,
+        delivery_id: 3,
+        description: 'Destinatário ausente',
+        created_at: '2020-04-08T11:47:29.845Z',
+        updated_at: '2020-04-08T11:47:29.845Z',
+      },
+      {
+        id: 4,
+        delivery_id: 3,
+        description: 'Problema com veículo',
+        created_at: '2020-04-10T11:00:02.750Z',
+        updated_at: '2020-04-10T11:00:02.750Z',
+      },
+      {
+        id: 5,
+        delivery_id: 3,
+        description: 'Encomenda furtada durante percurso',
+        created_at: '2020-04-11T10:30:39.502Z',
+        updated_at: '2020-04-11T10:30:39.502Z',
+      },
+      {
+        id: 6,
+        delivery_id: 7,
+        description: 'Problema com veículo',
+        created_at: '2020-04-01T10:33:31.160Z',
+        updated_at: '2020-04-01T10:33:31.160Z',
+      },
+      {
+        id: 7,
+        delivery_id: 7,
+        description: 'Destinatário ausente',
+        created_at: '2020-04-02T11:39:19.904Z',
+        updated_at: '2020-04-02T11:39:19.904Z',
+      },
+      {
+        id: 8,
+        delivery_id: 7,
+        description: 'Problema com veículo',
+        created_at: '2020-04-03T14:45:19.904Z',
+        updated_at: '2020-04-03T14:45:19.904Z',
+      },
+      {
+        id: 9,
+        delivery_id: 7,
+        description: 'Destinatário ausente',
+        created_at: '2020-04-04T15:36:19.904Z',
+        updated_at: '2020-04-04T15:36:19.904Z',
+      },
+      {
+        id: 10,
+        delivery_id: 7,
+        description: 'Encomenda furtada durante percurso',
+        created_at: '2020-04-05T11:30:19.904Z',
+        updated_at: '2020-04-05T11:30:19.904Z',
+      },
+      {
+        id: 11,
+        delivery_id: 9,
+        description: 'Destinatário ausente',
+        created_at: '2020-04-18T09:22:22.904Z',
+        updated_at: '2020-04-18T09:22:22.904Z',
+      },
+    ],
+    {},
+  ).then(async () => QueryInterface.sequelize.query('ALTER SEQUENCE "delivery_problems_id_seq" RESTART WITH 12')),
+
+  down: (queryInterface, Sequelize) => { },
+};

@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { signOut } from "~/store/modules/auth/actions";
 import Container from '~/components/Container';
 import Button from '~/components/Button';
+import api from "~/services/api";
 
 import { Field, Label, Value, ImageWrap, Image, Box } from './styles';
 

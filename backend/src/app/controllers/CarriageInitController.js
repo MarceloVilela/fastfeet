@@ -20,16 +20,16 @@ class CarriageInitController {
     // check - Withdrawals can only be made between 08:00 and 18:00
     const date = new Date();
 
-    // const timeZone = 'America/Sao_Paulo';
-    const timeZone = 'America/Denver';
+    const timeZone = 'America/Sao_Paulo';
+    // const timeZone = 'America/Denver';
 
     const now = utcToZonedTime(date, timeZone);
     const min = utcToZonedTime(setSeconds(setMinutes(setHours(now, 8), 0), 0), timeZone);
     const max = utcToZonedTime(setSeconds(setMinutes(setHours(now, 18), 0), 0), timeZone);
 
-    if (isBefore(min, now) || isAfter(max, now)) {
+    if (isBefore(now, min) || isAfter(now, max)) {
       return res.status(400).json({
-        error: 'Retiradas só podem ser feitas entre as 08:00 e 18:00h',
+        error: `${max}Retiradas só podem ser feitas entre as 08:00 e 18:00h`,
       });
     }
 

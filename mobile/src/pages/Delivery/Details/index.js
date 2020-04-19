@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import api from '~/services/api';
 import PropTypes from 'prop-types';
 
@@ -20,7 +20,7 @@ import {
 export default function DeliveryDetails({ route, navigation }) {
   const { deliveryData } = route.params;
   const { recipient } = route.params.deliveryData;
-  
+
   const [loading, setLoading] = useState(false);
 
   const { street, number, city, state, zip_code } = recipient;
@@ -31,8 +31,8 @@ export default function DeliveryDetails({ route, navigation }) {
   const navigateConfirm = () => navigation.navigate('DeliveryConfirm', { deliveryData });
   const registerWithdrawal = async () => {
     setLoading(true);
-    
-    try {      
+
+    try {
       const uri = `/deliverymen/${deliveryData.id}/delivery-init`;
       const response = await api.put(uri);
       navigation.navigate('DeliveryIndex', { deliveryData });
@@ -91,7 +91,9 @@ export default function DeliveryDetails({ route, navigation }) {
 
         <Box>
           <ActionWrap>
-            {createAction('Informar problema', navigateNew, 'cancel', 'danger', false)}
+            {deliveryData.statusDesc === 'Retirada' &&
+              createAction('Informar problema', navigateNew, 'cancel', 'danger', false)
+            }
             {createAction('Visualizar problema', navigateShow, 'info', 'warning')}
             {deliveryData.statusDesc === 'Pendente' &&
               createAction('Registrar retirada', registerWithdrawal, 'update', 'primary')

@@ -36,7 +36,7 @@ export default function Delivery() {
       const docsFormated = docs.map((item) => ({
         ...item,
         statusDesc: desc[item.status],
-        start_date_formatted: format(parseISO(item.start_date), "dd'/'MM'/'yy", { locale: pt }),
+        start_date_formatted: item.start_date ? format(parseISO(item.start_date), "dd'/'MM'/'yy", { locale: pt }) : '',
         end_date_formatted: item.end_date ? format(parseISO(item.end_date), "dd'/'MM'/'yy", { locale: pt }) : '',
         signature_id_url: item.signature_id ? `${api.defaults.baseURL}/files/${item.signature_id}` : '',
       }));

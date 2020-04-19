@@ -5,7 +5,7 @@ import { color, size } from '~/styles/values';
 
 export const List = styled.FlatList.attrs({
   showsVerticalScrollIndicator: false,
-  contentContainerStyle: { paddingTop: 20, paddingBottom: 40 },
+  contentContainerStyle: { paddingTop: 20, paddingBottom: 90 },
 })`
 `;
 

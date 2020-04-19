@@ -111,7 +111,7 @@ function DeliveryIndex({ navigation }) {
           <Identification>
             <ImageWrap>
               <Image
-                source={{ uri: `http://192.168.1.7:3333/files/${profile.avatar_id}` }}
+                source={{ uri: `${api.defaults.baseURL}/files/${profile.avatar_id}` }}
               />
             </ImageWrap>
 

@@ -7,7 +7,6 @@ export { default as Input } from './Input';
 export { default as ImageInput } from './ImageInput';
 export { default as List } from './List';
 export { default as Modal } from './Modal';
-export { default as Notifications } from './Notifications';
 export { default as Options } from './Options';
 export { default as Pagination } from './Pagination';
 export { default as SelectAsync } from './SelectAsync';

@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { toast } from 'react-toastify';
+import { parseISO, format } from 'date-fns';
+import pt from 'date-fns/locale/pt';
 
 import api from '~/services/api';
 import {
@@ -31,7 +33,13 @@ export default function Delivery() {
         pending: 'PENDENTE', withdrawal: 'RETIRADA', delivered: 'ENTREGUE', canceled: 'CANCELADA',
       };
 
-      const docsFormated = docs.map((item) => ({ ...item, statusDesc: desc[item.status] }));
+      const docsFormated = docs.map((item) => ({
+        ...item,
+        statusDesc: desc[item.status],
+        start_date_formatted: format(parseISO(item.start_date), "dd'/'MM'/'yy", { locale: pt }),
+        end_date_formatted: item.end_date ? format(parseISO(item.end_date), "dd'/'MM'/'yy", { locale: pt }) : '',
+        signature_id_url: item.signature_id ? `${api.defaults.baseURL}/files/${item.signature_id}` : '',
+      }));
 
       setItens(docsFormated);
     } catch (error) {

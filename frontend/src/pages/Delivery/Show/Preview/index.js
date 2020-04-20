@@ -5,7 +5,7 @@ import { Container } from './styles';
 
 export default function DeliveryPreview({ data }) {
   const { recipient } = data;
-
+  console.log(recipient);
   return (
     <Container>
       <div>
@@ -22,13 +22,22 @@ export default function DeliveryPreview({ data }) {
 
       <div>
         <strong>Retirada:</strong>
-        <p>{data.start_date ? data.start_date : '---'}</p>
+        <p>{data.start_date ? data.start_date_formatted : '---'}</p>
       </div>
 
       <div>
         <strong>Entrega:</strong>
-        <p>{data.end_date ? data.end_date : '---'}</p>
+        <p>{data.end_date ? data.end_date_formatted : '---'}</p>
       </div>
+
+      {data.signature_id_url
+      && (
+      <img
+        src={data.signature_id_url}
+        style={{ width: '300px', borderRadius: '50%' }}
+        alt="Preview"
+      />
+      )}
     </Container>
   );
 }
@@ -39,6 +48,9 @@ DeliveryPreview.propTypes = {
     description: PropTypes.string,
     start_date: PropTypes.string,
     end_date: PropTypes.string,
+    start_date_formatted: PropTypes.string,
+    end_date_formatted: PropTypes.string,
+    signature_id_url: PropTypes.string,
     recipient: PropTypes.shape({
       street: PropTypes.string,
       number: PropTypes.number,

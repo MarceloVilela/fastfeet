@@ -26,10 +26,13 @@ export default function Options({
       {(isComponentVisible)
         && (
           <Wrapper ref={ref}>
+            {handleInfo
+            && (
             <Item onClick={() => { handleInfo(); setIsComponentVisible(false); }} className="info">
               <MdInfo />
               <Description>Visualizar</Description>
             </Item>
+            )}
 
             {linkEdit
               && (
@@ -62,7 +65,7 @@ Options.propTypes = {
 };
 
 Options.defaultProps = {
-  handleInfo: () => { },
+  handleInfo: null,
   linkEdit: '',
   handleDelete: () => { },
   deleteLabel: 'Excluir',
